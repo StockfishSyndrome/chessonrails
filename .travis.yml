@@ -1,0 +1,13 @@
+language: ruby
+rvm:
+  - 1.8.7
+  - jruby-19mode
+  - 1.9.2
+  - 1.9.3
+  - 2.0.0
+  - 2.1.0
+
+# according to the internet adding this would make Travis build to go faster
+# more info can be found here: https://sunlightfoundation.com/blog/2015/02/24/set-up-travis-ci-for-your-ruby-application-more-quickly/
+cache: bundler
+sudo: false
