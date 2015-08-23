@@ -1,13 +1,13 @@
 == README
 
-{<img src="https://travis-ci.org/StockfishSyndrome/chessonrails.svg?branch=master" alt="Build Status" />}[https://travis-ci.org/StockfishSyndrome/chessonrails]
+{<img src="https://codeship.com/projects/b9d572c0-2b89-0133-4a8a-26f31a616e04/status?branch=master" alt="Status?branch=master" />}[https://codeship.com/projects/98419]
 
 = Toolkit
 Platform:: Ruby on Rails
 Source Control:: Github
 Deployment Platform:: Heroku
 Front End Framework:: Bootstrap
-Continuous Integration:: Travis-CI 
+Continuous Integration:: CodeShip 
 Testing:: FactoryGirl + Test::Unit/MiniTest
 
 
