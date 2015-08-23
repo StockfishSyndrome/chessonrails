@@ -1,5 +1,7 @@
 == README
 
+{<img src="https://travis-ci.org/StockfishSyndrome/chessonrails.svg?branch=master" alt="Build Status" />}[https://travis-ci.org/StockfishSyndrome/chessonrails]
+
 = Toolkit
 Platform:: Ruby on Rails
 Source Control:: Github
