@@ -126,11 +126,8 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-rails (~> 4.0.0)
-<<<<<<< HEAD
   devise (>= 3.2.4)
-=======
   factory_girl_rails (~> 4.0)
->>>>>>> 6cbc3a1154c8a548e516b6ad9e0943b283864899
   jbuilder (~> 1.2)
   jquery-rails
   pg
