@@ -7,6 +7,20 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+    <div class="nav">
+        <% if user_signed_in? %>
+            <li><%= link_to 'Sign out', destroy_user_session_path, :method => :delete %></li>
+        <% else %>
+            <li><%= link_to 'Sign in', new_user_session_path %></li>
+            <li><%= link_to 'Sign up', new_user_registration_path %></li>
+        <% end %>
+    </div>
+    <% if alert.present? %>
+        <p class="notice"><%= notice %></p>
+    <% end %>
+    <% if alert.present? %>
+        <p class="alert"><%= alert %></p>
+    <% end %>
 
 <%= yield %>
 
