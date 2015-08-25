@@ -1,3 +1,6 @@
-FactoryGirl.define do
+FactoryGirl.define do  factory :game do
+    
+  end
+
 
 end
