@@ -25,7 +25,7 @@ We are maintaining a master branch for production code and adding branches for f
 7. Notify our Slack Channel of the PR.
 
 === Code Review - Any team member can - and should! - review code from pull requests.
-1. Verify that the build is scucessful. 
+1. Verify that the build is successful. 
 2. Pull the code into your local dev environment to take it for a spin.  Make sure it works!
 3. Review the code for clarity.  Verify code is commented and supporting tests have been writtenand provide adequate coverage.
 4. Resolve any conflicts before merging.  
