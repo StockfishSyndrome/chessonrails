@@ -1,5 +1,6 @@
 body {
   background: url('/assets/bgpattern.jpg');
+  background-color: #222222;
 }
 
 header {
@@ -8,6 +9,17 @@ header {
 
 .navbar {
   border-radius: 0 !important;
+  margin-bottom: 0;
+}
+
+.hero {
+  background: url('/assets/chess.jpg') no-repeat center center fixed;
+   -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height:300px;
+  box-shadow: 0 3px 5px #2a2a2a;
 }
 
 .booyah-box {
@@ -28,6 +40,17 @@ h1, h2, h3, h4, h5, h6 {
   padding:0;
 }
 
+.headline h1 {
+  color:#f3f3f3;
+  font-size: 52px;
+  font-family: 'josefin_slabbold', sans-serif;
+  text-shadow: rgba(0,0,0,0.95) 1px 1px;
+}
+
+.booyah-box p {
+  font-family: 'josefin_sansregular', sans-serif;
+  font-size: 20px;
+}
 .clear {
   clear:both;
 }
