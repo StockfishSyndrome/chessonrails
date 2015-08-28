@@ -52,4 +52,21 @@ class GamesControllerTest < ActionController::TestCase
       assert_response :unprocessable_entity
   end
 
+  test "game show page" do
+      user = FactoryGirl.create(:user)
+      sign_in user
+
+      game = FactoryGirl.create(:game)
+      get :show, :id => game.id
+      assert_response :success
+  end
+
+  test "game show page, not found" do
+      user = FactoryGirl.create(:user)
+      sign_in user
+      
+      get :show, :id => "LOL"
+      assert_response :not_found
+  end
+
 end

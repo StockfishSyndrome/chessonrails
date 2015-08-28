@@ -15,7 +15,10 @@ class GamesController < ApplicationController
     end
 
     def show
-        @game = Game.where(:id => params[:id])
+        @game = Game.where(:id => params[:id]).first
+        if @game.blank?
+            render :text => "Not found", :status => :not_found
+        end
     end
 
     private
