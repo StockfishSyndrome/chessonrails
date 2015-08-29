@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 FactoryGirl.define do
 
     factory :piece do
@@ -11,17 +11,17 @@ FactoryGirl.define do
     end
 
     factory :user do
-=======
-FactoryGirl.define do 
-   
+
+FactoryGirl.define do
+
    factory :game do
         name "The Name Game"
         player_white
         player_black
    end
-    
+
     factory :user, aliases:[:player_white,:player_black] do
->>>>>>> ab3cc583585d3d76a9b0ff25a77c97f47d55530c
+
         sequence :email do |n|
             "nguy#{n}@gmail.com"
         end
