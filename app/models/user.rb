@@ -5,7 +5,6 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
 
-    has_many :games
     has_many :pieces
 
     has_many :games_as_white, :class_name => 'Game', :foreign_key => 'player_white_id'

@@ -13,4 +13,11 @@ FactoryGirl.define do
         password "12345!!!54321"
         password_confirmation "12345!!!54321"
     end
+
+    factory :piece do
+        user_id "1"
+        game_id "1"
+        position [0,1]
+    end
+    
 end
