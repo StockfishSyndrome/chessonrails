@@ -8,15 +8,15 @@
       <%= f.label :email %><br />
       <%= f.email_field :email, autofocus: true %>
     </div>
-
+    <br /><br /><br />
     <div class="field">
-      <%= f.label :password %>
+      <%= f.label :password %><br />
       <% if @minimum_password_length %>
       <em>(<%= @minimum_password_length %> characters minimum)</em>
       <% end %><br />
       <%= f.password_field :password, autocomplete: "off" %>
     </div>
-
+    <br /><br /><br />
     <div class="field">
       <%= f.label :password_confirmation %><br />
       <%= f.password_field :password_confirmation, autocomplete: "off" %>
