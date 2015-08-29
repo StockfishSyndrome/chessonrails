@@ -1,10 +1,10 @@
 class CreateGames < ActiveRecord::Migration
   def change
     create_table :games do |t|
-      t.integer :game_id
-      t.integer :player_one_id
-      t.integer :player_two_id
-
+      t.string :name
+      t.belongs_to :player_white, index: true
+      t.belongs_to :player_black, index: true
+      
       t.timestamps
     end
   end

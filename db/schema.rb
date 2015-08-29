@@ -11,17 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150826041211) do
+ActiveRecord::Schema.define(version: 20150829180936) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "games", force: true do |t|
-    t.integer  "player_one_id"
-    t.integer  "player_two_id"
+    t.integer  "player_white_id"
+    t.integer  "player_black_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
   end
+
+  add_index "games", ["player_black_id"], name: "index_games_on_player_black_id", using: :btree
+  add_index "games", ["player_white_id"], name: "index_games_on_player_white_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
