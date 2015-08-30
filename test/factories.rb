@@ -19,7 +19,9 @@ FactoryGirl.define do
         game_id "1"
         row_pos 0
         col_pos 0
-        type rook
+        type "rook"
+        association :game
+        association :user
     end
 
 end
