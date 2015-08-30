@@ -28,9 +28,11 @@ ActiveRecord::Schema.define(version: 20150829172828) do
   add_index "games", ["player_white_id"], name: "index_games_on_player_white_id", using: :btree
 
   create_table "pieces", force: true do |t|
+    t.integer  "row_pos"
+    t.integer  "col_pos"
     t.integer  "user_id"
     t.integer  "game_id"
-    t.string   "position",   default: [], array: true
+    t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
