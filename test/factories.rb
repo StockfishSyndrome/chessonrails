@@ -17,7 +17,8 @@ FactoryGirl.define do
     factory :piece do
         user_id "1"
         game_id "1"
-        position [0,1]
+        row_pos 1
+        col_pos 1
     end
     
 end
