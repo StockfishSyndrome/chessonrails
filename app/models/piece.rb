@@ -4,25 +4,25 @@ class Piece < ActiveRecord::Base
 
 
     def is_obstructed?
-      if self.rank == "pawn"
+      if self.category == "pawn"
         !self.game.pieces.where("col_pos = ? AND row_pos = ? - 1",self.col_pos,self.row_pos).blank?
-      elsif self.rank == "rook"
+      elsif self.category == "rook"
         !self.game.pieces.where("col_pos = ? AND row_pos = ? - 1",self.col_pos,self.row_pos).blank? && !self.game.pieces.where("col_pos = ? AND row_pos = ? + 1",self.col_pos,self.row_pos).blank? &&
           !self.game.pieces.where("col_pos = ? - 1 AND row_pos = ?",self.col_pos,self.row_pos).blank? && !self.game.pieces.where("col_pos = ? + 1  AND row_pos = ?",self.col_pos,self.row_pos).blank?
-      elsif self.rank == "knight"
+      elsif self.category == "knight"
         !self.game.pieces.where("col_pos = ? - 1 AND row_pos = ? + 2",self.col_pos,self.row_pos).blank? && !self.game.pieces.where("col_pos = ? + 1 AND row_pos = ? + 2",self.col_pos,self.row_pos).blank? &&
           !self.game.pieces.where("col_pos = ? - 1 AND row_pos = ? - 2",self.col_pos,self.row_pos).blank? && !self.game.pieces.where("col_pos = ? + 1 AND row_pos = ? - 2",self.col_pos,self.row_pos).blank? &&
           !self.game.pieces.where("col_pos = ? - 2 AND row_pos = ? + 1",self.col_pos,self.row_pos).blank? && !self.game.pieces.where("col_pos = ? - 2 AND row_pos = ? - 1",self.col_pos,self.row_pos).blank? &&
           !self.game.pieces.where("col_pos = ? + 2 AND row_pos = ? + 1",self.col_pos,self.row_pos).blank? && !self.game.pieces.where("col_pos = ? + 2 AND row_pos = ? - 1",self.col_pos,self.row_pos).blank?
-      elsif self.rank == "bishop"
+      elsif self.category == "bishop"
         !self.game.pieces.where("col_pos = ? - 1 AND row_pos = ? - 1",self.col_pos,self.row_pos).blank? && !self.game.pieces.where("col_pos = ? +1 AND row_pos = ? + 1",self.col_pos,self.row_pos).blank? &&
           !self.game.pieces.where("col_pos = ? - 1 AND row_pos = ? + 1",self.col_pos,self.row_pos).blank? && !self.game.pieces.where("col_pos = ? + 1  AND row_pos = ? - 1",self.col_pos,self.row_pos).blank?
-      elsif self.rank == "queen"
+      elsif self.category == "queen"
         !self.game.pieces.where("col_pos = ? AND row_pos = ? - 1",self.col_pos,self.row_pos).blank? && !self.game.pieces.where("col_pos = ? AND row_pos = ? + 1",self.col_pos,self.row_pos).blank? &&
           !self.game.pieces.where("col_pos = ? - 1 AND row_pos = ?",self.col_pos,self.row_pos).blank? && !self.game.pieces.where("col_pos = ? + 1  AND row_pos = ?",self.col_pos,self.row_pos).blank? &&
           !self.game.pieces.where("col_pos = ? - 1 AND row_pos = ? - 1",self.col_pos,self.row_pos).blank? && !self.game.pieces.where("col_pos = ? +1 AND row_pos = ? + 1",self.col_pos,self.row_pos).blank? &&
           !self.game.pieces.where("col_pos = ? - 1 AND row_pos = ? + 1",self.col_pos,self.row_pos).blank? && !self.game.pieces.where("col_pos = ? + 1  AND row_pos = ? - 1",self.col_pos,self.row_pos).blank?
-      else self.rank == "king"
+      else self.category == "king"
         !self.game.pieces.where("col_pos = ? AND row_pos = ? - 1",self.col_pos,self.row_pos).blank? && !self.game.pieces.where("col_pos = ? AND row_pos = ? + 1",self.col_pos,self.row_pos).blank? &&
           !self.game.pieces.where("col_pos = ? - 1 AND row_pos = ?",self.col_pos,self.row_pos).blank? && !self.game.pieces.where("col_pos = ? + 1  AND row_pos = ?",self.col_pos,self.row_pos).blank? &&
           !self.game.pieces.where("col_pos = ? - 1 AND row_pos = ? - 1",self.col_pos,self.row_pos).blank? && !self.game.pieces.where("col_pos = ? +1 AND row_pos = ? + 1",self.col_pos,self.row_pos).blank? &&
