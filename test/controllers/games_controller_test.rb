@@ -19,6 +19,7 @@ class GamesControllerTest < ActionController::TestCase
 
        assert_difference 'Game.count' do
        post :create, :game => {
+           :name => "The Name Game",
            :player_white_id => 1,
            :player_black_id => 2
        }
@@ -64,7 +65,7 @@ class GamesControllerTest < ActionController::TestCase
   test "game show page, not found" do
       user = FactoryGirl.create(:user)
       sign_in user
-      
+
       get :show, :id => "LOL"
       assert_response :not_found
   end
