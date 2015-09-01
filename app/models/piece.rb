@@ -4,6 +4,8 @@ class Piece < ActiveRecord::Base
 
 
     def is_obstructed?
+      # Checks category of piece, then peforms checks based on known movement patterns. 
+      # TODO - DRY
       if self.category == "pawn"
         !self.game.pieces.where("col_pos = ? AND row_pos = ? - 1",self.col_pos,self.row_pos).blank?
       elsif self.category == "rook"
@@ -29,5 +31,4 @@ class Piece < ActiveRecord::Base
           !self.game.pieces.where("col_pos = ? - 1 AND row_pos = ? + 1",self.col_pos,self.row_pos).blank? && !self.game.pieces.where("col_pos = ? + 1  AND row_pos = ? - 1",self.col_pos,self.row_pos).blank?
       end
     end
-
 end
