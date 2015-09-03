@@ -1,6 +1,52 @@
 <div class="booyah-box col-xs-6 col-xs-offset-3 text-center">
+<div id="wrap">
+ 
   <h1>Game On!</h1><br />
-  <%= @game.player_white_id %>
-  <h3>VS</h3>
-  <%= @game.player_black_id %>
+  <%= @game.player_white_id %> <br /><br />
+
+<table>
+  <tbody>
+    
+    <% (1..8).each do |row| %>   
+      <% if row.even? %>
+      
+       <tr>         
+        <% (1..8).each do |col| %>
+          <% if col.odd? %>
+            <td class="gray-space"></td>
+          <% else %>             
+            <td></td>
+          <% end %>        
+        <% end %>  
+      </tr>
+
+      <% else %>
+
+      <tr> 
+        
+        <% (1..8).each do |col| %>
+
+          <% if col.even? %>
+
+            <td class="gray-space"></td>
+          
+          <% else %>
+              
+            <td></td>
+
+          <% end %>
+        <% end %>  
+      </tr>
+      
+
+      <% end %>
+    <% end %>  
+   
+  </tbody>
+</table>
+<br /><br />
+
+  <%= @game.player_black_id %><br />
+
+</div>
 </div>
