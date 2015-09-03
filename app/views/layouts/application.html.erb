@@ -8,96 +8,56 @@
 </head>
 <body>
 
-<nav class="navbar navbar-inverse" role="navigation">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-        <%= link_to 'ChessOnRails', root_path, :class => 'navbar-brand' %>
-    </div>
+<div id="wrap">
+  <nav class="navbar navbar-inverse" role="navigation">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+          <%= link_to 'ChessOnRails', root_path, :class => 'navbar-brand' %>
+      </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-right">
-        <% if user_signed_in? %>
-          <li><%= link_to 'Sign Out', destroy_user_session_path, :method => :delete %></li>
-        <% else %>
-          <li><%= link_to 'Sign In', "#SignInModal", :class => "btn", "data-toggle" => "modal" %>
-            <div class="modal fade" id="SignInModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel" align="center">
-                      Sign In
-                    </h4>
-                  </div>
-                  <div class="modal-body" align="center">
-                    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-                      <div class="field">
-                        <%= f.label :email %><br />
-                        <%= f.email_field :email, autofocus: true %>
-                      </div>
-
-                      <div class="field">
-                        <%= f.label :password %><br />
-                        <%= f.password_field :password, autocomplete: "off" %>
-                      </div>
-                       <% if devise_mapping.rememberable? -%>
-                        <div class="field">
-                          <%= f.check_box :remember_me %>
-                          <%= f.label :remember_me %>
-                        </div>
-                      <% end -%>
-                      <br />
-                      <div class="actions modal-footer">
-                        <%= f.submit "Sign In", :class => 'btn btn-warning' %>
-                      </div>
-                    <% end %>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </li>
-          <% if user_signed_in? == false%>
-            <li><%= link_to 'Sign Up', "#SignUpModal", :class => "btn", "data-toggle" => "modal" %>
-              <div class="modal fade" id="SignUpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <% if user_signed_in? %>
+            <li><%= link_to 'Sign Out', destroy_user_session_path, :method => :delete %></li>
+          <% else %>
+            <li><%= link_to 'Sign In', "#SignInModal", :class => "btn", "data-toggle" => "modal" %>
+              <div class="modal fade" id="SignInModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       <h4 class="modal-title" id="myModalLabel" align="center">
-                        Sign Up
+                        Sign In
                       </h4>
                     </div>
                     <div class="modal-body" align="center">
-                      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-                        <%= devise_error_messages! %>
-
+                      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
                         <div class="field">
                           <%= f.label :email %><br />
                           <%= f.email_field :email, autofocus: true %>
                         </div>
-                      <br />
+
                         <div class="field">
-                          <%= f.label :password %>
-                          <% if @minimum_password_length %>
-                          <em>(<%= @minimum_password_length %> characters minimum)</em>
-                          <% end %><br />
+                          <%= f.label :password %><br />
                           <%= f.password_field :password, autocomplete: "off" %>
                         </div>
-                      <br />
-                        <div class="field">
-                          <%= f.label :password_confirmation %><br />
-                          <%= f.password_field :password_confirmation, autocomplete: "off" %>
-                        </div><br />
+                         <% if devise_mapping.rememberable? -%>
+                          <div class="field">
+                            <%= f.check_box :remember_me %>
+                            <%= f.label :remember_me %>
+                          </div>
+                        <% end -%>
+                        <br />
                         <div class="actions modal-footer">
-                          <%= f.submit "Sign Up", :class => 'btn btn-warning' %>
+                          <%= f.submit "Sign In", :class => 'btn btn-warning' %>
                         </div>
                       <% end %>
                     </div>
@@ -105,22 +65,64 @@
                 </div>
               </div>
             </li>
+            <% if user_signed_in? == false%>
+              <li><%= link_to 'Sign Up', "#SignUpModal", :class => "btn", "data-toggle" => "modal" %>
+                <div class="modal fade" id="SignUpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel" align="center">
+                          Sign Up
+                        </h4>
+                      </div>
+                      <div class="modal-body" align="center">
+                        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+                          <%= devise_error_messages! %>
+
+                          <div class="field">
+                            <%= f.label :email %><br />
+                            <%= f.email_field :email, autofocus: true %>
+                          </div>
+                        <br />
+                          <div class="field">
+                            <%= f.label :password %>
+                            <% if @minimum_password_length %>
+                            <em>(<%= @minimum_password_length %> characters minimum)</em>
+                            <% end %><br />
+                            <%= f.password_field :password, autocomplete: "off" %>
+                          </div>
+                        <br />
+                          <div class="field">
+                            <%= f.label :password_confirmation %><br />
+                            <%= f.password_field :password_confirmation, autocomplete: "off" %>
+                          </div><br />
+                          <div class="actions modal-footer">
+                            <%= f.submit "Sign Up", :class => 'btn btn-warning' %>
+                          </div>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            <% end %>
           <% end %>
-        <% end %>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
 
-    <% if alert.present? %>
-        <p class="notice"><%= notice %></p>
-    <% end %>
-    <% if alert.present? %>
-        <p class="alert alert-danger col-xs-10 col-xs-offset-1"><%= alert %></p>
-        <br class="clear" />
-    <% end %>
+      <% if alert.present? %>
+          <p class="notice"><%= notice %></p>
+      <% end %>
+      <% if alert.present? %>
+          <p class="alert alert-danger col-xs-10 col-xs-offset-1"><%= alert %></p>
+          <br class="clear" />
+      <% end %>
 
-<%= yield %>
+  <%= yield %>
+</div>
 
 <footer class="footer">
   <div class="container col-xs-10 col-xs-offset-1">
