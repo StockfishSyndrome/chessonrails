@@ -1,9 +1,13 @@
-<%= form_for @game do |f| %>
-  <%= f.label :player_white_id %>:
-  <%= f.text_field :player_white_id %><br />
+<div class="booyah-box col-xs-4 col-xs-offset-4 text-center">
+  <h1>Create a Game</h1><br />
 
-  <%= f.label :player_black_id %>:
-  <%= f.text_field :player_black_id %><br />
+  <%= form_for @game do |f| %>
+    <b>Player White ID (integer):</b>
+    <%= f.text_field :player_white_id %><br /><br />
 
-  <%= f.submit %>
-<% end %>
+    <b>Player Black ID (integer):</b>
+    <%= f.text_field :player_black_id %><br /><br />
+
+    <%= f.submit 'Create', :class => 'btn btn-warning' %>
+  <% end %>
+</div>
