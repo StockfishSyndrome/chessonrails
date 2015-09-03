@@ -24,3 +24,5 @@ Piece.create([{category: "pawn", row_pos: 6, col_pos: 0, game_id: 1, user_id: 1}
   {category: "knight", row_pos: 7, col_pos: 6, game_id: 1, user_id: 1},
   {category: "rook", row_pos: 7, col_pos: 8, game_id: 1, user_id: 1},
   ])
+
+piece = Piece.first
