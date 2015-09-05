@@ -2,8 +2,23 @@ class Piece < ActiveRecord::Base
     belongs_to :user
     belongs_to :game
 
+    # piece is parent class
+    # @param    row int row num of proposed move
+    # @param    col int col num of proposed move
+    # @return   bool weather the piece is_obstructed or not
+
+    def is_valid_move?(row, col)
+        if self.col_pos == col && self.row_pos == row
+            return false
+        end
+        return !self.is_obstructed?(row, col)
+    end
 
     def is_obstructed?(row,col)
+        # @param    row int row num of proposed move
+        # @param    col int col num of proposed move
+        # @return   bool weather the piece is_obstructed or not
+
       # check that move in in bounds, if not flag as obstructed
       if row < 0 || col < 0 || row > 7 || col > 7
         return true
@@ -23,7 +38,7 @@ class Piece < ActiveRecord::Base
         horizontal = true
       end
 
-      # check if move diagonal 
+      # check if move diagonal
       if ((row - self.row_pos).abs == (col - self.col_pos).abs)
         diagonal = true
       end
@@ -40,7 +55,7 @@ class Piece < ActiveRecord::Base
             if !self.game.pieces.where("row_pos = ? AND col_pos = ?",i,col).blank?
               return true
             end
-          end          
+          end
         end
         return false
 
@@ -56,7 +71,7 @@ class Piece < ActiveRecord::Base
             if !self.game.pieces.where("row_pos = ? AND col_pos = ?",row,i).blank?
               return true
             end
-          end          
+          end
         end
         return false
 
@@ -68,7 +83,7 @@ class Piece < ActiveRecord::Base
                 return true
               end
             end
-          end           
+          end
         elsif self.col_pos < col && self.row_pos > row
           ((self.col_pos + 1)..col).each do |i| # iterate through available columns
             (self.row_pos - 1).downto(row) do |r|
@@ -76,7 +91,7 @@ class Piece < ActiveRecord::Base
                 return true
               end
             end
-          end 
+          end
         elsif self.col_pos > col && self.row_pos < row
           (self.col_pos - 1).downto(col) do |i| # iterate through available columns
             ((self.row_pos+1)..row).each do |r|
@@ -84,21 +99,20 @@ class Piece < ActiveRecord::Base
                 return true
               end
             end
-          end          
-        else 
+          end
+        else
           (self.col_pos - 1).downto(col) do |i| # iterate through available columns
             (self.row_pos - 1).downto(row) do |r|
               if !self.game.pieces.where("row_pos = ? AND col_pos = ?",r,i).blank?
                 return true
               end
             end
-          end   
-        end  
+          end
+        end
         return false
-      
+
       else
         return true
-      end       
+      end
     end
 end
-  
