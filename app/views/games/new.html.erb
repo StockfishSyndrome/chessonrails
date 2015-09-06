@@ -2,11 +2,9 @@
   <h1>Create a Game</h1><br />
 
   <%= form_for @game do |f| %>
-    <b>Player White ID (integer):</b>
-    <%= f.text_field :player_white_id %><br /><br />
-
-    <b>Player Black ID (integer):</b>
-    <%= f.text_field :player_black_id %><br /><br />
+    <b>Enter a name for this game</b>
+    <%= f.text_field :name %><br /><br />
+    <%= f.hidden_field :player_white_id, :value => current_user.id %><br /><br />
 
     <%= f.submit 'Create', :class => 'btn btn-warning' %>
   <% end %>
