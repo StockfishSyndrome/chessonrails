@@ -1,5 +1,10 @@
 FactoryGirl.define do
 
+    factory :category do
+
+  end
+
+
    factory :game do
         name "The Name Game"
         player_white
