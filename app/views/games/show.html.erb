@@ -2,7 +2,14 @@
 <div id="wrap">
  
   <h1>Game On!</h1><br />
-  <%= @game.player_white_id %> <br /><br />
+  <h2><%= @game.name %></h2><br />
+
+  <% if current_user.id == @game.player_white_id %>
+    <p>You are playing as the white chess set.</p>
+  <% else %>
+    <p>You are playing as the black chess set.</p>
+    <br />
+  <% end %>
 
 <table>
   <tbody>
@@ -45,8 +52,6 @@
   </tbody>
 </table>
 <br /><br />
-
-  <%= @game.player_black_id %><br />
 
 </div>
 </div>
