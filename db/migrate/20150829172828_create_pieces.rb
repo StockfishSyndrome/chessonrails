@@ -5,7 +5,7 @@ class CreatePieces < ActiveRecord::Migration
       t.integer :col_pos
       t.belongs_to :user
       t.belongs_to :game
-      t.string :category
+      t.string :type
 
       t.timestamps
     end

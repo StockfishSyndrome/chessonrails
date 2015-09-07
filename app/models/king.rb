@@ -1,4 +1,4 @@
-class King < Category
+class King < Piece
 
     # piece is parent class
     # @param    row int row num of proposed move
@@ -9,11 +9,12 @@ class King < Category
         if super == false
             return false
         end
-        
         # valid moves row-1, row+1, col-1, col+1
         # invalid moves  any row/col > 1
         if (self.col_pos - col).abs > 1 || (self.row_pos - row).abs > 1
             return false
+        end
+
     end
     return true
 

@@ -6,4 +6,48 @@ class Game < ActiveRecord::Base
 
   validates :player_white_id, :numericality => {only_integer: true}
   validates :player_black_id, :numericality => {only_integer: true}
+
+
+  def populate_board
+    @type = ""
+    @row = nil
+    @column = nil
+    @player = nil
+
+    (0..31).each do |i|
+      if i < 8
+        @row = 0
+        @column = i
+        @player = player_black_id
+      elsif i < 16
+        @row = 1
+        @column = i - 8
+        @player = player_black_id
+      elsif i < 24
+        @row = 6
+        @column = i - 16
+        @player = player_white_id
+      else
+        @row = 7
+        @column = i - 24
+        @player = player_white_id
+      end
+
+      if @row == 1 || @row == 6
+        @type = "pawn"
+      elsif @column == 0 || @column == 7
+        @type = "rook"
+      elsif @column == 1 || @column == 6
+        @type = "knight"
+      elsif @column == 2 || @column == 5
+        @type = "bishop"
+      elsif @column == 3
+        @type = "queen"
+      else
+        @type = "king"
+      end
+
+      Piece.create(game_id: self.id,user_id: @player,type: @type, row_pos: @row, col_pos: @column)
+    end
+  end
 end
