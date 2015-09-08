@@ -64,6 +64,7 @@ class PieceTest < ActiveSupport::TestCase
   end
 
   test "King, valid move" do
-
+    king = FactoryGirl.create(:piece, row_pos: 1, col_pos: 2, type: "King")
+    assert(king.valid_move?(1,3))
   end
 end
