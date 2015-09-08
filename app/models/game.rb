@@ -34,17 +34,17 @@ class Game < ActiveRecord::Base
       end
 
       if @row == 1 || @row == 6
-        @type = "pawn"
+        @type = "Pawn"
       elsif @column == 0 || @column == 7
-        @type = "rook"
+        @type = "Rook"
       elsif @column == 1 || @column == 6
-        @type = "knight"
+        @type = "Knight"
       elsif @column == 2 || @column == 5
-        @type = "bishop"
+        @type = "Bishop"
       elsif @column == 3
-        @type = "queen"
+        @type = "Queen"
       else
-        @type = "king"
+        @type = "King"
       end
 
       Piece.create(game_id: self.id,user_id: @player,type: @type, row_pos: @row, col_pos: @column)

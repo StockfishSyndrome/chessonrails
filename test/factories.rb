@@ -17,9 +17,15 @@ FactoryGirl.define do
     factory :piece do
         row_pos 1
         col_pos 1
-        type "pawn"
+        type "Pawn"
         association :game, :id => 999
         association :user
     end
 
+    factory :king do
+        row_pos 1
+        col_pos 2
+        association :game, :id => 999
+        association :user
+    end
 end

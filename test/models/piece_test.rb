@@ -58,13 +58,17 @@ class PieceTest < ActiveSupport::TestCase
   end
 
   test "King, invalid move" do
-    king = FactoryGirl.create(:piece, row_pos: 1, col_pos: 2, type: "King")
-    #assert(piece.valid_move?(1,2))
-    assert(king.valid_move?(1,4))
+    k = FactoryGirl.create(:king)
+    assert(!k.valid_move?(1,4))
   end
 
   test "King, valid move" do
-    king = FactoryGirl.create(:piece, row_pos: 1, col_pos: 2, type: "King")
-    assert(king.valid_move?(1,3))
+    k = FactoryGirl.create(:king)
+    assert(k.valid_move?(1,3))
+  end
+
+  test "King, skipped move" do
+    k = FactoryGirl.create(:king)
+    assert(!k.valid_move?(1,2))  
   end
 end
