@@ -56,7 +56,7 @@ class PieceTest < ActiveSupport::TestCase
       assert(piece.is_obstructed?(0,8))
       assert(piece.is_obstructed?(8,0))
   end
-
+  
   test "King, invalid move" do
     k = FactoryGirl.create(:king)
     assert(!k.valid_move?(1,4))
@@ -69,6 +69,11 @@ class PieceTest < ActiveSupport::TestCase
 
   test "King, skipped move" do
     k = FactoryGirl.create(:king)
-    assert(!k.valid_move?(1,2))  
+    assert(!k.valid_move?(1,2))
+  end
+
+  test "King type" do
+      k = FactoryGirl.create(:king)
+      assert_equal(k.type, "King")
   end
 end
