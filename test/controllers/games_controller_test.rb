@@ -70,4 +70,22 @@ class GamesControllerTest < ActionController::TestCase
       assert_response :not_found
   end
 
+  test "game update not logged in" do
+      user = FactoryGirl.create(:user)
+
+      game = FactoryGirl.create(:game)
+      put :update, :id => game.id, :game => {:player_black_id => user.id}
+      assert_redirected_to new_user_session_path
+  end
+
+  # test "game update success" do
+  #     user = FactoryGirl.create(:user)
+  #     sign_in user
+
+  #     game = FactoryGirl.create(:game)
+  #     put :update, :id => game.id, :game => {:player_black_id => user.id}
+  #     assert_equal game.player_black_id, user.id
+  #     assert_redirected_to game_path(game)
+  # end
+
 end
