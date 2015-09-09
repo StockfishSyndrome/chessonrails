@@ -79,7 +79,7 @@
 <div class="container col-xs-12 col-sm-12">
   <% @games.each do |game| %>
   <div class="booyah-box col-xs-4 col-sm-3 text-center">	
-    <h1><%= game.name %></h1> <br /><br />
+    <h1><%= game.name %></h1>
     <%= link_to "Join", game_path(game), :method => :put, :class => 'btn btn-primary'%>
   </div>
   <% end %>
