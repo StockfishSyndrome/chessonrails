@@ -6,7 +6,7 @@ class Game < ActiveRecord::Base
 
   validates :player_white_id, :numericality => {only_integer: true}
   validates :player_black_id, :numericality => {only_integer: true}
-
+  validates :name, presence: true
 
   def populate_board
     @category = ""

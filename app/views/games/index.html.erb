@@ -1,0 +1,88 @@
+<div id="wrap"> 
+<div class="hero">
+<br />
+<br />
+<br />
+<br />
+ <div class="headline text-center">
+ 	<br />
+ 	<% if user_signed_in? %>
+ 	  <h1>Play ChessOnRails Now</h1>
+ 	<% else %>
+ 	  <h1>Join ChessOnRails Now</h1>
+ 	<% end %>
+ 	<br />
+ 	  <% if user_signed_in? %>
+ 	    <%= link_to 'Create a Game', new_game_path, :class => 'btn btn-primary btn-lg' %>
+ 	  <% else %>
+ 	    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#MainModal">
+ 	      Sign Up
+ 	    </button>
+ 	  <% end %>
+	  <div class="modal fade" id="MainModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	    <div class="modal-dialog">
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	          <h4 class="modal-title" id="myModalLabel">
+	            <% if user_signed_in? %>
+	              Play a Game
+	            <% else %>
+	              Sign Up
+	            <% end %>
+	          </h4>
+	        </div>
+	        <div class="modal-body">
+	          <% if user_signed_in? %>
+	            </br></br>
+	            This is a placeholder for creating/joining a game.
+	            </br></br></br>
+			    <div class="actions modal-footer">
+			        <button class="btn btn-warning">Create/Join</button>
+			    </div>
+	          <% else %>
+			    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+			      <%= devise_error_messages! %>
+
+			      <div class="field">
+			        <%= f.label :email %><br />
+			        <%= f.email_field :email, autofocus: true %>
+			      </div>
+				  <br />
+			      <div class="field">
+			        <%= f.label :password %>
+			        <% if @minimum_password_length %>
+			        <em>(<%= @minimum_password_length %> characters minimum)</em>
+			        <% end %><br />
+			        <%= f.password_field :password, autocomplete: "off" %>
+			      </div>
+				  <br />
+			      <div class="field">
+			        <%= f.label :password_confirmation %><br />
+			        <%= f.password_field :password_confirmation, autocomplete: "off" %>
+			      </div>
+			      <br />
+			      <div class="actions modal-footer">
+			        <%= f.submit "Sign Up", :class => 'btn btn-warning' %>
+			      </div>
+			    <% end %>
+			  <% end %>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+ </div>
+</div>
+
+<br />
+
+<div class="container col-xs-12 col-sm-12">
+  <% @games.each do |game| %>
+  <div class="booyah-box col-xs-4 col-sm-3 text-center">	
+    <h1><%= game.name %></h1>
+    <%= link_to "Join", game_path(game), :method => :put, :class => 'btn btn-primary'%>
+  </div>
+  <% end %>
+</div>
+
+</div>

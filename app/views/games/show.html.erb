@@ -2,8 +2,13 @@
 <div id="wrap">
  
   <h1>Game On!</h1><br />
-  <%= @game.player_white_id %> <br /><br />
+  <h2><%= @game.name %></h2><br />
 
+  <p>Black</p>
+  <% if @game.player_black.nil? %>
+  <% else %>
+  <%= @game.player_black.email %>
+  <% end %>
 <table>
   <tbody>
     
@@ -46,7 +51,8 @@
 </table>
 <br /><br />
 
-  <%= @game.player_black_id %><br />
+<p>White</p>
+<%= @game.player_white.email %>
 
 </div>
 </div>
