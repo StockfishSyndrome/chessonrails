@@ -4,7 +4,8 @@
   <%= form_for @game do |f| %>
     <b>Enter a name for this game</b>
     <%= f.text_field :name %><br /><br />
-    <%= f.hidden_field :player_white_id, :value => current_user.id %><br /><br />
+    <%= f.hidden_field :player_white_id, :value => current_user.id %>
+    <%= f.hidden_field :player_black_id, :value => 0 %>
 
     <%= f.submit 'Create', :class => 'btn btn-warning' %>
   <% end %>
