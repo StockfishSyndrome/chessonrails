@@ -4,13 +4,11 @@
   <h1>Game On!</h1><br />
   <h2><%= @game.name %></h2><br />
 
-  <% if current_user.id == @game.player_white_id %>
-    <p>You are playing as the white chess set.</p>
+  <p>Black</p>
+  <% if @game.player_black.nil? %>
   <% else %>
-    <p>You are playing as the black chess set.</p>
-    <br />
+  <%= @game.player_black.email %>
   <% end %>
-
 <table>
   <tbody>
     
@@ -52,6 +50,9 @@
   </tbody>
 </table>
 <br /><br />
+
+<p>White</p>
+<%= @game.player_white.email %>
 
 </div>
 </div>
