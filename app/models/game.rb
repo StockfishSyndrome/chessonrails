@@ -1,7 +1,7 @@
 class Game < ActiveRecord::Base
   belongs_to :player_white, :class_name => 'User'
   belongs_to :player_black, :class_name => 'User'
-  
+
   has_many :pieces
 
   validates :player_white_id, :numericality => {only_integer: true}
@@ -9,7 +9,7 @@ class Game < ActiveRecord::Base
   validates :name, presence: true
 
   def populate_board
-    @category = ""
+    @type = ""
     @row = nil
     @column = nil
     @player = nil
@@ -34,20 +34,20 @@ class Game < ActiveRecord::Base
       end
 
       if @row == 1 || @row == 6
-        @category = "pawn"
+        @type = "Pawn"
       elsif @column == 0 || @column == 7
-        @category = "rook"
+        @type = "Rook"
       elsif @column == 1 || @column == 6
-        @category = "knight"
+        @type = "Knight"
       elsif @column == 2 || @column == 5
-        @category = "bishop"
-      elsif @column == 3 
-        @category = "queen"
+        @type = "Bishop"
+      elsif @column == 3
+        @type = "Queen"
       else
-        @category = "king"
+        @type = "King"
       end
 
-      Piece.create(game_id: self.id,user_id: @player,category: @category, row_pos: @row, col_pos: @column)
+      Piece.create(game_id: self.id,user_id: @player,type: @type, row_pos: @row, col_pos: @column)
     end
   end
 end

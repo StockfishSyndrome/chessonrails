@@ -17,9 +17,52 @@ FactoryGirl.define do
     factory :piece do
         row_pos 1
         col_pos 1
-        category "pawn"
+        type "Pawn"
         association :game, :id => 999
         association :user
     end
+
+    factory :king do
+        row_pos 1
+        col_pos 2
+        association :game, :id => 999
+        association :user
+    end
+
+    factory :pawn do
+        row_pos 1
+        col_pos 2
+        association :game, :id => 999
+        association :user
+    end
+
+    factory :knight do
+        row_pos 1
+        col_pos 2
+        association :game, :id => 999
+        association :user
+    end
+
+    factory :queen do
+        row_pos 1
+        col_pos 2
+        association :game, :id => 999
+        association :user
+    end
+
+    factory :rook do
+        row_pos 1
+        col_pos 2
+        association :game, :id => 999
+        association :user
+    end
+
+    factory :bishop do
+        row_pos 1
+        col_pos 2
+        association :game, :id => 999
+        association :user
+    end
+    
 
 end

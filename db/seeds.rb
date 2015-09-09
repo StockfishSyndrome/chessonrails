@@ -23,5 +23,4 @@
  # {category: "bishop", row_pos: 7, col_pos: 5, game_id: 1, user_id: 1},
  # {category: "knight", row_pos: 7, col_pos: 6, game_id: 1, user_id: 1},
  # {category: "rook", row_pos: 7, col_pos: 8, game_id: 1, user_id: 1},
-  ])
-
+ # ])

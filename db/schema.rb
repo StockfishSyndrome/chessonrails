@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 20150829172828) do
     t.integer  "col_pos"
     t.integer  "user_id"
     t.integer  "game_id"
-    t.string   "category"
+    t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
