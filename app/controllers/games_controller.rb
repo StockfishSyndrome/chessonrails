@@ -20,10 +20,10 @@ class GamesController < ApplicationController
 
     def show
         @game = Game.where(:id => params[:id]).first
-        if @game.blank?
-            render :text => "Not found", :status => :not_found
-        else
+        if !@game.blank?
             @pieces = @game.pieces.to_a
+        else
+            render :text => "Not found", :status => :not_found
         end
     end
 
@@ -31,7 +31,7 @@ class GamesController < ApplicationController
         @game = Game.where(:id => params[:id]).first        
         if current_user.id == @game.player_white_id
             redirect_to game_path(@game)
-        else player_black_id == nil
+        else 
             @game.update(:player_black_id => current_user.id)
             @game.populate_board
             redirect_to game_path(@game)
