@@ -20,8 +20,8 @@ class Piece < ActiveRecord::Base
 
     def is_obstructed?(row,col)
       # check that move in in bounds, if not flag as obstructed
-      if row < 0 || col < 0 || row > 7 || col > 7
-        return true
+      if (self.col_pos - col).abs > 7 || (self.row_pos - row) > 7
+          return true
       end
 
       vertical = false
