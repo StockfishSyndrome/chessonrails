@@ -20,7 +20,9 @@ class GamesController < ApplicationController
 
     def show
         @game = Game.where(:id => params[:id]).first
-        if @game.blank?
+        if !@game.blank?
+            @pieces = @game.pieces.to_a
+        else
             render :text => "Not found", :status => :not_found
         end
     end
@@ -29,8 +31,9 @@ class GamesController < ApplicationController
         @game = Game.where(:id => params[:id]).first        
         if current_user.id == @game.player_white_id
             redirect_to game_path(@game)
-        else
+        else 
             @game.update(:player_black_id => current_user.id)
+            @game.populate_board
             redirect_to game_path(@game)
         end
     end
@@ -40,4 +43,16 @@ class GamesController < ApplicationController
     def game_params
         params.required(:game).permit(:name,:player_white_id, :player_black_id)
     end
+
+    helper_method :selected_piece
+    def selected_piece(row,col)
+        piece = @pieces.find {|p| p.row_pos == row && p.col_pos == col}
+        if piece
+            @selected_piece = piece.type
+        else 
+            @selected_piece = ""
+        end
+        @selected_piece
+    end
+
 end

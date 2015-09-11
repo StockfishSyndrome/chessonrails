@@ -11,16 +11,15 @@
   <% end %>
 <table>
   <tbody>
-    
-    <% (1..8).each do |row| %>   
-      <% if row.even? %>
+    <% (0..7).each do |row| %>   
+      <% if row.odd? %>
       
        <tr>         
-        <% (1..8).each do |col| %>
-          <% if col.odd? %>
-            <td class="gray-space"></td>
+        <% (0..7).each do |col| %>
+          <% if col.even? %>
+            <td class="gray-space"><%= selected_piece(row,col) %></td>
           <% else %>             
-            <td></td>
+            <td><%= selected_piece(row,col) %></td>
           <% end %>        
         <% end %>  
       </tr>
@@ -29,15 +28,15 @@
 
       <tr> 
         
-        <% (1..8).each do |col| %>
+        <% (0..7).each do |col| %>
 
-          <% if col.even? %>
+          <% if col.odd? %>
 
-            <td class="gray-space"></td>
+            <td class="gray-space"><%= selected_piece(row,col) %></td>
           
           <% else %>
               
-            <td></td>
+            <td><%= selected_piece(row,col) %></td>
 
           <% end %>
         <% end %>  
