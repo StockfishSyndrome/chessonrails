@@ -103,7 +103,8 @@ class PieceTest < ActiveSupport::TestCase
   end
 
   test "Pawn, valid move" do
-    pawn = FactoryGirl.create(:pawn, row_pos: 1, col_pos: 2)
+    game = FactoryGirl.create(:game)
+    pawn = FactoryGirl.create(:pawn, game_id: game.id, user_id: game.player_black.id,row_pos: 1, col_pos: 2)
     assert(pawn.valid_move?(2,2))
   end
 
@@ -113,17 +114,20 @@ class PieceTest < ActiveSupport::TestCase
   end
 
   test "Pawn valid first_move" do
-    pawn = FactoryGirl.create(:pawn, row_pos: 1, col_pos: 0)
-    assert(pawn.valid_move?(3,0))
+    game = FactoryGirl.create(:game)
+    pawn = FactoryGirl.create(:pawn, game_id: game.id, user_id: game.player_black.id,row_pos: 1, col_pos: 2)
+    assert(pawn.valid_move?(3,2))
   end
 
   test "Pawn invalid first_move" do
-    pawn = FactoryGirl.create(:pawn, row_pos: 1, col_pos: 0)
-    assert(!pawn.valid_move?(3,1))
+    game = FactoryGirl.create(:game)
+    pawn = FactoryGirl.create(:pawn, game_id: game.id, user_id: game.player_black.id,row_pos: 1, col_pos: 0)
+    assert(!pawn.valid_move?(4,0))
   end
 
   test "Pawn, skipped move" do
     pawn = FactoryGirl.create(:pawn)
     assert(!pawn.valid_move?(1,2))
   end
+
 end

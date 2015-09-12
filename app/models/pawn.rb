@@ -1,7 +1,10 @@
+require 'pry'
+
 class Pawn < Piece
 
+
     # piece is parent class
-    # weather valid_move or not
+    # weather valid_move? or not
     # @param    row int row num of proposed move
     # @param    col int col num of proposed move
     # @return   bool weather the piece is_obstructed or not
@@ -23,41 +26,41 @@ class Pawn < Piece
     # the conditions to check valid moves
 
 
-    def is_valid_move?(row, col)
+    def valid_move?(row, col)
         if super == false
             return false
         end
 
         # checking if the piece belongs_to black player. if it does then forward_modifier is -1 else 1
-        if piece.user == game.player_black_id
-            forward_modifier = -1
-        else
+        if self.user == game.player_black
             forward_modifier = 1
+        else
+            forward_modifier = -1
         end
 
         if forward_modifier == 1
-            first_move = (self.row_pos == 6)
-        else
             first_move = (self.row_pos == 1)
+        else
+            first_move = (self.row_pos == 6)
         end
+        #binding.pry
 
-        if first_move
-            if ( self.row_pos == row + (2 * forward_modifier) )
+        if first_move # row_pos = 1 == 2 + 2 *
+            if ( self.row_pos + (2 * forward_modifier) == row)
                 return true
             end
         end
 
-
         if !self.game.pieces.where("row_pos = ? AND col_pos = ?",row,col).blank?
             if ( (self.col_pos == col + 1) || (self.col_pos == col - 1) )
-                if (self.row_pos == row + (1 * forward_modifier))
+                if (self.row_pos + (1 * forward_modifier) == row )
                     return true
                 end
             end
         end
 
         # checking for black/white side player move
-        if (self.row_pos == row + forward_modifier)
+        if (self.row_pos + forward_modifier == row)
             return true
         end
 
