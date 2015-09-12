@@ -1,3 +1,4 @@
+require 'pry'
 class Rook < Piece
 
     # weather valid_move or not
@@ -5,7 +6,9 @@ class Rook < Piece
     # @param    col int col num of proposed move
     # @return   bool weather the move is_valid or not
 
-    def is_valid_move(row, col)
+    def valid_move?(row, col)
+        test = true
+        binding.pry
         if super == false
             return false
         end
@@ -17,7 +20,7 @@ class Rook < Piece
             return false
         end
 
-        if  (self.col_pos - col).abs == (self.row_pos - row).abs
+        if  (self.col_pos - col).abs && (self.row_pos - row).abs
             return false
         end
         return true
@@ -49,10 +52,12 @@ class Rook < Piece
         return true
 
 =end
-    if (self.col_pos == col + 1) == (self.col_pos == row + 1)
-        return false
+    if (self.col_pos + 1 == col) && (self.row_pos + 1 == row )
+        test = false
+        return test
     end
-    return true
+    return test
+
     end
 
 
