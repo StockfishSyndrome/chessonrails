@@ -104,7 +104,12 @@ class PieceTest < ActiveSupport::TestCase
 
   test "Rook, valid move" do
     rook = FactoryGirl.create(:rook)
-    assert(rook.valid_move?(2,3))
+    assert(rook.valid_move?(2,2))
+  end
+
+  test "Rook, invalid move" do
+    rook = FactoryGirl.create(:rook)
+    assert(!rook.valid_move?(2,3))
   end
 
 end

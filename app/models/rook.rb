@@ -1,4 +1,3 @@
-require 'pry'
 class Rook < Piece
 
     # weather valid_move or not
@@ -7,59 +6,14 @@ class Rook < Piece
     # @return   bool weather the move is_valid or not
 
     def valid_move?(row, col)
-        test = true
-        binding.pry
         if super == false
             return false
         end
-
-        #valid moves: any number of squares forwars, back or across but NOT diagonal
-=begin
-        # not sure if its needed
-        if (self.col_pos - col).abs > 7 || (self.row_pos - row) > 7
-            return false
-        end
-
-        if  (self.col_pos - col).abs && (self.row_pos - row).abs
+        # valid moves: any number of squares forwars, back or across but NOT diagonal
+        if ( (self.col_pos - col).abs) == ((self.row_pos - row).abs)
             return false
         end
         return true
-=end
-=begin
-        # checking each diagonal move
-        if ( (self.col_pos == col - 1) || (self.col_pos == col + 1) ) && ( (self.row_pos == row - 1) || (self.row_pos == row + 1) )
-            return false
-        end
-        if ( (self.col_pos == col - 2) || (self.col_pos == col + 2) ) && ( (self.row_pos == row - 2) || (self.row_pos == row + 2) )
-            return false
-        end
-        if ( (self.col_pos == col - 3) || (self.col_pos == col + 3) ) && ( (self.row_pos == row - 3) || (self.row_pos == row + 3) )
-            return false
-        end
-        if ( (self.col_pos == col - 4) || (self.col_pos == col + 4) ) && ( (self.row_pos == row - 4) || (self.row_pos == row + 4) )
-            return false
-        end
-        if ( (self.col_pos == col - 5) || (self.col_pos == col + 5) ) && ( (self.row_pos == row - 5) || (self.row_pos == row + 5) )
-            return false
-        end
-        if ( (self.col_pos == col - 6) || (self.col_pos == col + 6) ) && ( (self.row_pos == row - 6) || (self.row_pos == row + 6) )
-            return false
-        end
-        if ( (self.col_pos == col - 7) || (self.col_pos == col + 7) ) && ( (self.row_pos == row - 7) || (self.row_pos == row + 7) )
-            return false
-        end
-
-        return true
-
-=end
-    if (self.col_pos + 1 == col) && (self.row_pos + 1 == row )
-        test = false
-        return test
-    end
-    return test
 
     end
-
-
-
 end
