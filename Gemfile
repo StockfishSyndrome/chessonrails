@@ -32,10 +32,7 @@ gem 'jbuilder', '~> 1.2'
 
 gem "factory_girl_rails", "~> 4.0"
 
-group  :development do
-    gem 'pry-rails'
-    gem 'pry-nav'
-end
+gem 'pry', :group => :development
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
