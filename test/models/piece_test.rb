@@ -136,15 +136,25 @@ test "Pawn, skipped move" do
   assert(!pawn.valid_move?(1,2))
 end
 
-=begin
+
     test "Knight, valid move" do
-        knight = FactoryGirl.create(:knight, row_pos: 1, col_pos: 1)
-        assert(knight.valid_move?(3,2))
+        knight = FactoryGirl.create(:knight, row_pos: 2, col_pos: 4)
+        assert(knight.valid_move?(0,5))
     end
-=end
-    test "Knight, invalid move" do
+
+    test "Knight, invalid diagonal move" do
         knight = FactoryGirl.create(:knight, row_pos: 1, col_pos: 1)
         assert(!knight.valid_move?(2,2))
+    end
+
+    test "Knight, invalid horizontal move" do
+        knight = FactoryGirl.create(:knight, row_pos: 1, col_pos: 1)
+        assert(!knight.valid_move?(1,2))
+    end
+
+    test "Knight, invalid vertical move" do
+        knight = FactoryGirl.create(:knight, row_pos: 1, col_pos: 1)
+        assert(!knight.valid_move?(0,1))
     end
 
     test "Knight, skipped move" do
