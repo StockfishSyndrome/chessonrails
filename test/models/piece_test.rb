@@ -102,7 +102,7 @@ class PieceTest < ActiveSupport::TestCase
       assert_equal(k.type, "Rook")
   end
 
-<<<<<<< HEAD
+
   test "Queen, invalid move" do
       q = FactoryGirl.create(:queen, row_pos:1, col_pos:1)
       assert(!q.valid_move?(8,1))
@@ -116,7 +116,7 @@ class PieceTest < ActiveSupport::TestCase
   test "Queen, skipped move" do
       q = FactoryGirl.create(:queen, row_pos:1, col_pos:1)
       assert(!q.valid_move?(1,1))
-=======
+
   test "Pawn, valid move" do
     game = FactoryGirl.create(:game)
     pawn = FactoryGirl.create(:pawn, game_id: game.id, user_id: game.player_black.id,row_pos: 1, col_pos: 2)
@@ -149,7 +149,6 @@ class PieceTest < ActiveSupport::TestCase
   test "Pawn, skipped move" do
     pawn = FactoryGirl.create(:pawn)
     assert(!pawn.valid_move?(1,2))
->>>>>>> master
   end
 
 end
