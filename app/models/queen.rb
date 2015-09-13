@@ -5,17 +5,16 @@ class Queen < Piece
     # @param    col int col num of proposed move
     # @return   bool weather the move is_valid or not
 
-    def is_valid_move?(row, col)
+    def valid_move?(row, col)
         if super == false
             return false
         end
 
-        # valid moves: any numbers of squares in any direction
-        # not sure if its needed
-        
+        #valid moves: any number of sqaures diagonally
+        if ( (self.col_pos - col).abs ) == ( (self.row_pos - row).abs )
+            return true
+        end
+
         return true
     end
-
-
-
 end
