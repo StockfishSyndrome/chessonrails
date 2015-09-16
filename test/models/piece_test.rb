@@ -162,4 +162,29 @@ class PieceTest < ActiveSupport::TestCase
         assert(!b.valid_move?(1,1))
     end
 
+    test "Knight, valid move" do
+        knight = FactoryGirl.create(:knight, row_pos: 2, col_pos: 4)
+        assert(knight.valid_move?(0,5))
+    end
+
+    test "Knight, invalid diagonal move" do
+        knight = FactoryGirl.create(:knight, row_pos: 1, col_pos: 1)
+        assert(!knight.valid_move?(2,2))
+    end
+
+    test "Knight, invalid horizontal move" do
+        knight = FactoryGirl.create(:knight, row_pos: 1, col_pos: 1)
+        assert(!knight.valid_move?(1,2))
+    end
+
+    test "Knight, invalid vertical move" do
+        knight = FactoryGirl.create(:knight, row_pos: 1, col_pos: 1)
+        assert(!knight.valid_move?(0,1))
+    end
+
+    test "Knight, skipped move" do
+        knight = FactoryGirl.create(:knight, row_pos: 1, col_pos: 1)
+        assert(!knight.valid_move?(1,1))
+    end
+
 end

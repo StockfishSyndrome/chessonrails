@@ -48,7 +48,7 @@ class Pawn < Piece
             end
 
             if !self.game.pieces.where("row_pos = ? AND col_pos = ?",row,col).blank?
-             if ( (self.col_pos == col + 1) || (self.col_pos == col - 1) )
+                if ( (self.col_pos == col + 1) || (self.col_pos == col - 1) )
                     if (self.row_pos + (1 * forward_modifier) == row )
                         return true
                     end
