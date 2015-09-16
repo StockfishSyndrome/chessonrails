@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class PieceTest < ActiveSupport::TestCase
+
     test "vertical move, unobstructed" do
       piece = FactoryGirl.create(:piece)
       assert(!piece.is_obstructed?(2,1))
@@ -160,6 +161,21 @@ class PieceTest < ActiveSupport::TestCase
     test "Bishop, skipped move" do
         b = FactoryGirl.create(:bishop, row_pos: 1, col_pos: 1)
         assert(!b.valid_move?(1,1))
+    end
+
+    test "Queen, invalid move" do
+        q = FactoryGirl.create(:queen, row_pos:1, col_pos:1)
+        assert(!q.valid_move?(8,1))
+    end
+
+    test "Queen, valid move" do
+        q = FactoryGirl.create(:queen, row_pos:1, col_pos:1)
+        assert(q.valid_move?(6,1))
+    end
+
+    test "Queen, skipped move" do
+        q = FactoryGirl.create(:queen, row_pos:1, col_pos:1)
+        assert(!q.valid_move?(1,1))
     end
 
     test "Knight, valid move" do
