@@ -1,4 +1,3 @@
-require 'pry'
 class Knight < Piece
 
     # weather valid_move or not
@@ -30,7 +29,7 @@ class Knight < Piece
         if (self.col_pos - col).abs + (self.row_pos - row).abs == 3
             return true
         end
-        
+
         return false
 
     end
