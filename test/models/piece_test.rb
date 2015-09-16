@@ -103,10 +103,21 @@ class PieceTest < ActiveSupport::TestCase
       assert_equal(k.type, "Rook")
     end
 
+    test "Rook, valid move" do
+        rook = FactoryGirl.create(:rook)
+        assert(rook.valid_move?(2,2))
+    end
+
+    test "Rook, invalid move" do
+        rook = FactoryGirl.create(:rook)
+        assert(!rook.valid_move?(2,3))
+    end
+
+
     test "Pawn, valid move" do
-    game = FactoryGirl.create(:game)
-    pawn = FactoryGirl.create(:pawn, game_id: game.id, user_id: game.player_black.id,row_pos: 1, col_pos: 2)
-    assert(pawn.valid_move?(2,2))
+        game = FactoryGirl.create(:game)
+        pawn = FactoryGirl.create(:pawn, game_id: game.id, user_id: game.player_black.id,row_pos: 1, col_pos: 2)
+        assert(pawn.valid_move?(2,2))
     end
 
     test "Pawn, invalid move" do
@@ -165,6 +176,30 @@ class PieceTest < ActiveSupport::TestCase
     test "Queen, skipped move" do
         q = FactoryGirl.create(:queen, row_pos:1, col_pos:1)
         assert(!q.valid_move?(1,1))
+
+    test "Knight, valid move" do
+        knight = FactoryGirl.create(:knight, row_pos: 2, col_pos: 4)
+        assert(knight.valid_move?(0,5))
+    end
+
+    test "Knight, invalid diagonal move" do
+        knight = FactoryGirl.create(:knight, row_pos: 1, col_pos: 1)
+        assert(!knight.valid_move?(2,2))
+    end
+
+    test "Knight, invalid horizontal move" do
+        knight = FactoryGirl.create(:knight, row_pos: 1, col_pos: 1)
+        assert(!knight.valid_move?(1,2))
+    end
+
+    test "Knight, invalid vertical move" do
+        knight = FactoryGirl.create(:knight, row_pos: 1, col_pos: 1)
+        assert(!knight.valid_move?(0,1))
+    end
+
+    test "Knight, skipped move" do
+        knight = FactoryGirl.create(:knight, row_pos: 1, col_pos: 1)
+        assert(!knight.valid_move?(1,1))
     end
 
 end
