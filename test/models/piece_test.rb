@@ -176,6 +176,7 @@ class PieceTest < ActiveSupport::TestCase
     test "Queen, skipped move" do
         q = FactoryGirl.create(:queen, row_pos:1, col_pos:1)
         assert(!q.valid_move?(1,1))
+    end
 
     test "Knight, valid move" do
         knight = FactoryGirl.create(:knight, row_pos: 2, col_pos: 4)
