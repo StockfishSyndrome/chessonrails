@@ -151,11 +151,6 @@ class PieceTest < ActiveSupport::TestCase
         assert(!b.valid_move?(1,1))
     end
 
-    test "Pawn, skipped move" do
-      pawn = FactoryGirl.create(:pawn)
-      assert(!pawn.valid_move?(1,2))
-    end
-
     test "Knight, valid move" do
         knight = FactoryGirl.create(:knight, row_pos: 2, col_pos: 4)
         assert(knight.valid_move?(0,5))
