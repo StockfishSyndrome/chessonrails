@@ -22,7 +22,7 @@
 	<% if col.even? %>
             <td class="gray-space">
 		<% if piece.present? %>	
-  		  <%= link_to piece.type, game_path(@game), :controller => :games_controller, :action => select_piece(piece.id) %></td>
+  		  <%= link_to piece.type, piece_path(piece), method: :patch %></td>
 		<% end %>
           <% else %>             
             <td>

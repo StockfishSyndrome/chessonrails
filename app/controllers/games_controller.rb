@@ -38,6 +38,9 @@ class GamesController < ApplicationController
         end
     end
     
+    def select_piece
+      Piece.find_by_id(id).is_selected = true      
+    end
 
     private
 
@@ -46,9 +49,4 @@ class GamesController < ApplicationController
     end
     
     helper_method :select_piece
-    def select_piece(id)
-      @game = Game.find_by_id(params[:id])
-      Piece.find_by_id(id).is_selected = true      
-      @game.pieces.first.is_selected = true 
-    end
 end
