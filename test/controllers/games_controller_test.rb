@@ -78,6 +78,13 @@ class GamesControllerTest < ActionController::TestCase
       assert_redirected_to new_user_session_path
   end
 
+  test "select piece success" do 
+    game = FactoryGirl.create(:game)
+    piece = FactoryGirl.create(:piece, game_id: game.id, row_pos: 1, col_pos: 2, user_id: game.player_black_id)
+    selected_piece = game.select_piece(1,2)
+    assert_equal piece.id, selected_piece
+  end
+
   # test "game update success" do
   #     user = FactoryGirl.create(:user)
   #     sign_in user

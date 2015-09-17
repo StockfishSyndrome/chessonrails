@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
     before_action :authenticate_user!, except: [:index]
-
+    
     def index
         @games = Game.all
     end
@@ -12,7 +12,7 @@ class GamesController < ApplicationController
     def create
         @game = Game.create(game_params)
         if @game.valid?
-        redirect_to game_path(@game)
+    	redirect_to game_path(@game)
         else
         render :new, :status => :unprocessable_entity
         end
@@ -22,14 +22,14 @@ class GamesController < ApplicationController
         @game = Game.where(:id => params[:id]).first
         if !@game.blank?
             @pieces = @game.pieces.to_a
-        else
+	else
             render :text => "Not found", :status => :not_found
         end
     end
 
     def update
         @game = Game.where(:id => params[:id]).first        
-        if current_user.id == @game.player_white_id
+	if current_user.id == @game.player_white_id
             redirect_to game_path(@game)
         else 
             @game.update(:player_black_id => current_user.id)
@@ -37,22 +37,18 @@ class GamesController < ApplicationController
             redirect_to game_path(@game)
         end
     end
+    
 
     private
 
     def game_params
         params.required(:game).permit(:name,:player_white_id, :player_black_id)
     end
-
-    helper_method :selected_piece
-    def selected_piece(row,col)
-        piece = @pieces.find {|p| p.row_pos == row && p.col_pos == col}
-        if piece
-            @selected_piece = piece.type
-        else 
-            @selected_piece = ""
-        end
-        @selected_piece
+    
+    helper_method :select_piece
+    def select_piece(id)
+      @game = Game.find_by_id(params[:id])
+      Piece.find_by_id(id).is_selected = true      
+      @game.pieces.first.is_selected = true 
     end
-
 end
