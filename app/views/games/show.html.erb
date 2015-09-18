@@ -17,9 +17,15 @@
        <tr>         
         <% (0..7).each do |col| %>
           <% if col.even? %>
-            <td class="gray-space"><%= selected_piece(row,col) %></td>
+            <td class="gray-space">
+              <%= piece_color(row,col) %>
+              <%= selected_piece(row,col) %>
+            </td>
           <% else %>             
-            <td><%= selected_piece(row,col) %></td>
+            <td>
+              <%= piece_color(row,col) %>
+              <%= selected_piece(row,col) %>
+            </td>
           <% end %>        
         <% end %>  
       </tr>
@@ -32,11 +38,17 @@
 
           <% if col.odd? %>
 
-            <td class="gray-space"><%= selected_piece(row,col) %></td>
+            <td class="gray-space">
+              <%= piece_color(row,col) %>
+              <%= selected_piece(row,col) %>
+            </td>
           
           <% else %>
               
-            <td><%= selected_piece(row,col) %></td>
+            <td>
+              <%= piece_color(row,col) %>
+              <%= selected_piece(row,col) %>
+            </td>
 
           <% end %>
         <% end %>  
