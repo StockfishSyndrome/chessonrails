@@ -58,9 +58,9 @@ class GamesController < ApplicationController
     def piece_color(row,col)
         piece = piece_finder(row,col)
         if piece
-            if piece.user_id == 1
+            if piece.user_id == @game.player_black_id
                 color = "Black"
-            elsif piece.user_id == 2
+            elsif piece.user_id == @game.player_white_id
                 color = "White"
             else
                 color = ""
