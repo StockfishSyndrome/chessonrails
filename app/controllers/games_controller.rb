@@ -46,7 +46,18 @@ class GamesController < ApplicationController
         params.required(:game).permit(:name,:player_white_id, :player_black_id)
     end
 
+    helper_method :get_piece_at_position, :get_piece_color
     helper_method :selected_piece, :piece_color
+
+    def get_piece_at_position(row,col)
+        piece = @pieces.find {|p| p.row_pos == row && p.col_pos == col}
+    end
+
+    def get_piece_color(game, piece)
+        return "Black" if piece.user_id == game.player_black_id
+        return "White" if piece.user_id == game.player_white_id
+        ""
+    end
 
     def selected_piece(row,col)
         piece = piece_finder(row,col)
@@ -58,8 +69,8 @@ class GamesController < ApplicationController
         @selected_piece
     end
 
-    def piece_color(row,col)
-        piece = piece_finder(row,col)
+    def piece_color(row, col)
+        piece = piece_finder(row, col)
         if piece
             if piece.user_id == @game.player_black_id
                 color = "Black"
@@ -72,7 +83,7 @@ class GamesController < ApplicationController
         color
     end
 
-    def piece_finder(row,col)
+    def piece_finder(row, col)
         piece = @pieces.find {|p| p.row_pos == row && p.col_pos == col}
     end
 end

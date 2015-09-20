@@ -11,53 +11,18 @@
   <% end %>
 <table>
   <tbody>
-    <% (0..7).each do |row| %>   
-      <% if row.odd? %>
-      
-       <tr>         
-        <% (0..7).each do |col| %>
-          <% if col.even? %>
-            <td class="gray-space">
-              <%= piece_color(row,col) %>
-              <%= selected_piece(row,col) %>
-            </td>
-          <% else %>             
-            <td>
-              <%= piece_color(row,col) %>
-              <%= selected_piece(row,col) %>
-            </td>
-          <% end %>        
-        <% end %>  
-      </tr>
-
-      <% else %>
-
-      <tr> 
-        
-        <% (0..7).each do |col| %>
-
-          <% if col.odd? %>
-
-            <td class="gray-space">
-              <%= piece_color(row,col) %>
-              <%= selected_piece(row,col) %>
-            </td>
-          
-          <% else %>
-              
-            <td>
-              <%= piece_color(row,col) %>
-              <%= selected_piece(row,col) %>
-            </td>
-
-          <% end %>
-        <% end %>  
-      </tr>
-      
-
+  <% (0..7).each do |row| %>
+    <tr>
+      <% (0..7).each do |col| %>
+        <td class="<%= "gray-space" if (col.even? && row.odd?) || (col.odd? && row.even?) %>">
+        <% px = get_piece_at_position(row, col) %>
+        <% if px %>
+          <a href=""><%= "#{get_piece_color(@game, px)} #{px.type}" %></a>
+        <% end %>
+        </td>
       <% end %>
-    <% end %>  
-   
+    </tr>
+  <% end %>
   </tbody>
 </table>
 <br /><br />
