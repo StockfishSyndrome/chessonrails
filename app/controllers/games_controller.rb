@@ -38,15 +38,9 @@ class GamesController < ApplicationController
         end
     end
     
-    def select_piece
-      Piece.find_by_id(id).is_selected = true      
-    end
-
     private
 
     def game_params
         params.required(:game).permit(:name,:player_white_id, :player_black_id)
     end
-    
-    helper_method :select_piece
 end
