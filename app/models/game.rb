@@ -8,6 +8,8 @@ class Game < ActiveRecord::Base
   validates :player_black_id, :numericality => {only_integer: true}
   validates :name, presence: true
 
+  after_create :populate_board
+
   def populate_board
     @type = ""
     @row = nil
