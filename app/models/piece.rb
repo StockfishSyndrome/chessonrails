@@ -1,7 +1,7 @@
 class Piece < ActiveRecord::Base
     belongs_to :user
     belongs_to :game
-
+   
 #    self.inheritance_column = nil
 
 
