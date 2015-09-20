@@ -1,9 +1,9 @@
 <div class="booyah-box col-xs-6 col-xs-offset-3 text-center">
 <div id="wrap">
- 
+
   <h1>Game On!</h1><br />
   <h2><%= @game.name %></h2><br />
-  Selected Piece: <%= @pieces.select{|piece| piece.is_selected == true}[0] %><br /> 
+  Selected Piece: <%= @pieces.select{|piece| piece.is_selected == true}[0] %><br />
   <p>Black</p>
   <% if @game.player_black.nil? %>
   <% else %>
@@ -11,59 +11,54 @@
   <% end %>
 <table>
   <tbody>
-    <% (0..7).each do |row| %>   
-      <% if row.odd? %>
-      
-       <tr>         
-        <% (0..7).each do |col| %> 
-	<% if @pieces.select{|piece| (piece.row_pos == row && piece.col_pos == col)}.present? %>
-	  <% piece = @pieces.select{|piece| (piece.row_pos == row && piece.col_pos == col)}[0] %></td>
-	<% end %>
-	<% if col.even? %>
-            <td class="gray-space">
-		<% if piece.present? %>	
-  		  <%= link_to piece.type, piece_path(piece), method: :patch %></td>
-		<% end %>
-          <% else %>             
-            <td>
-		<% if piece.present? %>	
-  		  <%= link_to piece.type,'#' %></td>
-		<% end %>
-          <% end %>        
-        <% end %>  
-      </tr>
+    <% (0..7).each do |row| %>
+        <% if row.odd? %>
+           <tr>
+            <% (0..7).each do |col| %>
+                <% if @pieces.select{|piece| (piece.row_pos == row && piece.col_pos == col)}.present? %>
+            	<% piece = @pieces.select{|piece| (piece.row_pos == row && piece.col_pos == col)}[0] %>
+            	<% end %>
+                    <% if col.even? %>
+                        <td class="gray-space">
+                        <% if piece.present? %>
+                  		  <%= link_to piece.type, piece_path(piece), method: :patch %>
+                		<% end %>
+                        <%= piece_color(row,col) %>
+                        <%= selected_piece(row,col) %>
+                        </td>
+                    <% else %>
+                        <td>
+                          <%= piece_color(row,col) %>
+                          <%= selected_piece(row,col) %>
+                        </td>
+                    <% end %>
+            <% end %>
+            </tr>
+        <% else %>
+            <tr>
+            <% (0..7).each do |col| %>
+        	<% if @pieces.select{|piece| (piece.row_pos == row && piece.col_pos == col)}.present? %>
+        	  <% piece = @pieces.select{|piece| (piece.row_pos == row && piece.col_pos == col)}[0] %></td>
+        	<% end %>
+            <% if col.odd? %>
 
-      <% else %>
+                <td class="gray-space">
+                  <%= piece_color(row,col) %>
+                  <%= selected_piece(row,col) %>
+                </td>
+              <% else %>
 
-      <tr> 
-        
-        <% (0..7).each do |col| %>
+                <td>
+                  <%= piece_color(row,col) %>
+                  <%= selected_piece(row,col) %>
+                </td>
 
-	<% if @pieces.select{|piece| (piece.row_pos == row && piece.col_pos == col)}.present? %>
-	  <% piece = @pieces.select{|piece| (piece.row_pos == row && piece.col_pos == col)}[0] %></td>
-	<% end %>
-          <% if col.odd? %>
+              <% end %>
+            <% end %>
+            </tr>
+        <% end %>
+    <% end %>
 
-            <td class="gray-space">
-		<% if piece.present? %>	
-  		  <%= link_to piece.type,'#' %></td>
-		<% end %>
-          
-          <% else %>
-              
-            <td>
-		<% if piece.present? %>	
-  		  <%= link_to piece.type,'#' %></td>
-		<% end %>
-
-          <% end %>
-        <% end %>  
-      </tr>
-      
-
-      <% end %>
-    <% end %>  
-   
   </tbody>
 </table>
 <br /><br />
