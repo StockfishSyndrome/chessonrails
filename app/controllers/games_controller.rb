@@ -12,9 +12,10 @@ class GamesController < ApplicationController
     def create
         @game = Game.create(game_params)
         if @game.valid?
-        redirect_to game_path(@game)
+            @game.populate_board
+            redirect_to game_path(@game)
         else
-        render :new, :status => :unprocessable_entity
+            render :new, :status => :unprocessable_entity
         end
     end
 
@@ -28,12 +29,13 @@ class GamesController < ApplicationController
     end
 
     def update
-        @game = Game.where(:id => params[:id]).first        
+        @game = Game.where(:id => params[:id]).first
         if current_user.id == @game.player_white_id
             redirect_to game_path(@game)
         else 
             @game.update(:player_black_id => current_user.id)
-            @game.populate_board
+            pieces = Piece.where(:game_id => @game.id, :user_id => 0)
+            pieces.each { |p| p.update(:user_id => current_user.id) }
             redirect_to game_path(@game)
         end
     end
@@ -44,7 +46,25 @@ class GamesController < ApplicationController
         params.required(:game).permit(:name,:player_white_id, :player_black_id)
     end
 
+    helper_method :get_piece_at_position, :get_piece_color
     helper_method :selected_piece, :piece_color
+
+    def get_piece_at_position(row, col)
+        piece = @pieces.find {|p| p.row_pos == row && p.col_pos == col}
+    end
+
+    def get_piece_color(game, piece)
+        # handle bad data
+        return "" if game.nil? || piece.nil?
+        
+        return "Black" if piece.user_id == game.player_black_id
+        return "White" if piece.user_id == game.player_white_id
+        
+        # the piece is not in this game!
+        ""
+    end
+
+    # deprecated, see get_piece_at_position
     def selected_piece(row,col)
         piece = piece_finder(row,col)
         if piece
@@ -55,8 +75,9 @@ class GamesController < ApplicationController
         @selected_piece
     end
 
-    def piece_color(row,col)
-        piece = piece_finder(row,col)
+    # deprecated, see get_piece_color
+    def piece_color(row, col)
+        piece = piece_finder(row, col)
         if piece
             if piece.user_id == @game.player_black_id
                 color = "Black"
@@ -69,7 +90,7 @@ class GamesController < ApplicationController
         color
     end
 
-    def piece_finder(row,col)
+    def piece_finder(row, col)
         piece = @pieces.find {|p| p.row_pos == row && p.col_pos == col}
     end
 end
