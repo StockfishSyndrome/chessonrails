@@ -2,8 +2,7 @@
 <div id="wrap">
  
   <h1>Game On!</h1><br />
-  <h2><%= @game.name %></h2><br />
-  Selected Piece: <%= @pieces.select{|piece| piece.is_selected == true}[0] %><br /> 
+  <h2><%= @game.name %></h2><br /> 
   <p>Black</p>
   <% if @game.player_black.nil? %>
   <% else %>
@@ -22,7 +21,7 @@
 	<% if col.even? %>
             <td class="gray-space">
 		<% if piece.present? %>	
-  		  <%= link_to piece.type, piece_path(piece), method: :patch %></td>
+  		  <%= link_to piece.type, select_piece_path(piece) %></td>
 		<% end %>
           <% else %>             
             <td>

@@ -4,8 +4,12 @@ Chessonrails::Application.routes.draw do
   root 'games#index'
 
   resources :games, :only => [:show, :new, :create, :update] 
-  resources :pieces, :only => [:show, :update]
-  
+
+  resources :pieces, :only => [:update] do
+    member do
+     get 'select'
+    end
+  end 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
