@@ -43,4 +43,23 @@ class GamesController < ApplicationController
     def game_params
         params.required(:game).permit(:name,:player_white_id, :player_black_id)
     end
+
+    helper_method :piece_color
+    def piece_color(row,col)
+        piece = piece_finder(row,col)
+        if piece
+            if piece.user_id == @game.player_black_id
+                color = "Black"
+            elsif piece.user_id == @game.player_white_id
+                color = "White"
+            else
+                color = ""
+            end
+        end
+        color
+    end
+
+    def piece_finder(row,col)
+        piece = @pieces.find {|p| p.row_pos == row && p.col_pos == col}
+    end
 end
