@@ -12,7 +12,7 @@ class GamesController < ApplicationController
     def create
         @game = Game.create(game_params)
         if @game.valid?
-        redirect_to game_path(@game)
+    	redirect_to game_path(@game)
         else
         render :new, :status => :unprocessable_entity
         end
@@ -22,16 +22,16 @@ class GamesController < ApplicationController
         @game = Game.where(:id => params[:id]).first
         if !@game.blank?
             @pieces = @game.pieces.to_a
-        else
+	else
             render :text => "Not found", :status => :not_found
         end
     end
 
     def update
-        @game = Game.where(:id => params[:id]).first        
-        if current_user.id == @game.player_white_id
+        @game = Game.where(:id => params[:id]).first
+	if current_user.id == @game.player_white_id
             redirect_to game_path(@game)
-        else 
+        else
             @game.update(:player_black_id => current_user.id)
             @game.populate_board
             redirect_to game_path(@game)
@@ -44,17 +44,7 @@ class GamesController < ApplicationController
         params.required(:game).permit(:name,:player_white_id, :player_black_id)
     end
 
-    helper_method :selected_piece, :piece_color
-    def selected_piece(row,col)
-        piece = piece_finder(row,col)
-        if piece
-            @selected_piece = piece.type
-        else 
-            @selected_piece = ""
-        end
-        @selected_piece
-    end
-
+    helper_method :piece_color
     def piece_color(row,col)
         piece = piece_finder(row,col)
         if piece
