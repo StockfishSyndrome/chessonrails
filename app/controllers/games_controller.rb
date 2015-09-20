@@ -12,9 +12,10 @@ class GamesController < ApplicationController
     def create
         @game = Game.create(game_params)
         if @game.valid?
-    	redirect_to game_path(@game)
+            @game.populate_board
+    	    redirect_to game_path(@game)
         else
-        render :new, :status => :unprocessable_entity
+            render :new, :status => :unprocessable_entity
         end
     end
 
@@ -33,7 +34,8 @@ class GamesController < ApplicationController
             redirect_to game_path(@game)
         else
             @game.update(:player_black_id => current_user.id)
-            @game.populate_board
+            pieces = Piece.where(:game_id => @game.id, :user_id => 0)
+            pieces.each {|p| p.update(:user_id => current_user.id)}
             redirect_to game_path(@game)
         end
     end
