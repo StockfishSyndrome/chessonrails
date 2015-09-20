@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
     before_action :authenticate_user!, except: [:index]
-    
+
     def index
         @games = Game.all
     end
@@ -28,16 +28,16 @@ class GamesController < ApplicationController
     end
 
     def update
-        @game = Game.where(:id => params[:id]).first        
+        @game = Game.where(:id => params[:id]).first
 	if current_user.id == @game.player_white_id
             redirect_to game_path(@game)
-        else 
+        else
             @game.update(:player_black_id => current_user.id)
             @game.populate_board
             redirect_to game_path(@game)
         end
     end
-    
+
     private
 
     def game_params

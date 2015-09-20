@@ -77,8 +77,7 @@ class GamesControllerTest < ActionController::TestCase
       put :update, :id => game.id, :game => {:player_black_id => user.id}
       assert_redirected_to new_user_session_path
   end
-
-
+  
   # test "game update success" do
   #     user = FactoryGirl.create(:user)
   #     sign_in user
