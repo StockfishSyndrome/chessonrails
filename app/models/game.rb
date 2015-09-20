@@ -9,6 +9,11 @@ class Game < ActiveRecord::Base
   validates :name, presence: true
 
   def populate_board
+    existing_pieces = Piece.select(:game_id => id)
+    if existing_pieces.present?
+      return
+    end
+
     @type = ""
     @row = nil
     @column = nil
