@@ -49,13 +49,18 @@ class GamesController < ApplicationController
     helper_method :get_piece_at_position, :get_piece_color
     helper_method :selected_piece, :piece_color
 
-    def get_piece_at_position(row,col)
+    def get_piece_at_position(row, col)
         piece = @pieces.find {|p| p.row_pos == row && p.col_pos == col}
     end
 
     def get_piece_color(game, piece)
+        # handle bad data
+        return "" if game.nil? || piece.nil?
+        
         return "Black" if piece.user_id == game.player_black_id
         return "White" if piece.user_id == game.player_white_id
+        
+        # the piece is not in this game!
         ""
     end
 
