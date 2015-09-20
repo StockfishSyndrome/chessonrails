@@ -64,6 +64,7 @@ class GamesController < ApplicationController
         ""
     end
 
+    # deprecated, see get_piece_at_position
     def selected_piece(row,col)
         piece = piece_finder(row,col)
         if piece
@@ -74,6 +75,7 @@ class GamesController < ApplicationController
         @selected_piece
     end
 
+    # deprecated, see get_piece_color
     def piece_color(row, col)
         piece = piece_finder(row, col)
         if piece

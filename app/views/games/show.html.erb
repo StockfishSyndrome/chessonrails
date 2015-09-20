@@ -11,13 +11,39 @@
   <% end %>
 <table>
   <tbody>
+  <% selected_piece = @game.pieces.select { |p| p.is_selected }.first %>
   <% (0..7).each do |row| %>
     <tr>
       <% (0..7).each do |col| %>
         <td class="<%= "gray-space" if (col.even? && row.odd?) || (col.odd? && row.even?) %>">
+        <!-- figure out what will be displayed in the square (if anything) -->
+        <% square_desc = "x" %>
         <% piece = get_piece_at_position(row, col) %>
         <% if piece %>
-          <%= link_to "#{get_piece_color(@game, piece)} #{piece.type}", "#" %>
+          <% square_desc = "#{get_piece_color(@game, piece)} #{piece.type}" %>
+        <% end %>
+        
+        <!-- if there is a selected piece, then we draw the move UI -->
+        <% if selected_piece %>
+          <!-- need a way to identify this square in the move method -->
+          <% square_id = row * 8 + col %>
+          <% if piece.nil? || piece.id != selected_piece.id %>
+            <!-- there is a piece on this square but it's not the selected one -->
+            <%= link_to square_desc, move_piece_path(square_id) %>
+          <% else %>
+            <!-- this is the selected piece -->
+            <strong><%= square_desc %></strong>
+          <% end %>
+        <!-- there is no selected piece, display the select UI for pieces -->
+        <% elsif piece %>
+          <!-- only allow selection of pieces owned by the current user -->
+          <% if piece.user_id == current_user.id %>
+            <!-- one of our valiant warriors! -->
+            <%= link_to square_desc, select_piece_path(piece) %>
+          <% else %>
+            <!-- an enemy piece! -->
+            <%= square_desc %>
+          <% end %>
         <% end %>
         </td>
       <% end %>
