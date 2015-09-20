@@ -8,9 +8,15 @@ class Game < ActiveRecord::Base
   validates :player_black_id, :numericality => {only_integer: true}
   validates :name, presence: true
 
-  after_create :populate_board
+  # after_create :populate_board
 
   def populate_board
+    # do not create pieces if they've already been created!
+    existing_pieces = Piece.select(:game_id => id)
+    if existing_pieces.length > 0
+      return
+    end
+
     @type = ""
     @row = nil
     @column = nil
