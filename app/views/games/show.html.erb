@@ -15,9 +15,9 @@
     <tr>
       <% (0..7).each do |col| %>
         <td class="<%= "gray-space" if (col.even? && row.odd?) || (col.odd? && row.even?) %>">
-        <% px = get_piece_at_position(row, col) %>
-        <% if px %>
-          <a href=""><%= "#{get_piece_color(@game, px)} #{px.type}" %></a>
+        <% piece = get_piece_at_position(row, col) %>
+        <% if piece %>
+          <%= link_to "#{get_piece_color(@game, piece)} #{piece.type}", "#" %>
         <% end %>
         </td>
       <% end %>
