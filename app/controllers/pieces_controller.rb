@@ -5,6 +5,7 @@ class PiecesController < ApplicationController
     piece.update(is_selected: true)
     redirect_to game_path(piece.game)
   end
+
   def move
       selected_piece = Piece.where(is_selected: true, user_id: current_user.id).first
         if selected_piece

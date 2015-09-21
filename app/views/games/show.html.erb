@@ -10,49 +10,38 @@
   <%= @game.player_black.email %>
   <% end %>
 <table>
-  <tbody> 
+  <tbody>
+    <% selected_piece = @game.pieces.select { |p| p.is_selected }.first %>
     <% (0..7).each do |row| %>
-      <% if row.odd? %>
-
        <tr>
         <% (0..7).each do |col| %>
-       	  <% if @pieces.select{|piece| (piece.row_pos == row && piece.col_pos == col)}.present? %>
-      	    <% piece = @pieces.select{|piece| (piece.row_pos == row && piece.col_pos == col)}[0] %></td>
+       	  <td class="<%= "gray-space" if (col.even? && row.odd?) || (col.odd? && row.even?) %>">
+         <!-- find out if there is a piece in the square -->
+          <% if @pieces.select{|piece| (piece.row_pos == row && piece.col_pos == col)}.present? %>
+      	    <% piece = @pieces.select{|piece| (piece.row_pos == row && piece.col_pos == col)}[0] %>
       	  <% end %>
-      	  <% if col.even? %>
-                  <td class="gray-space">
-        		<% if piece.present? %>
-          		  <%= link_to "#{piece_color(row,col)} #{piece.type}", select_piece_path(piece) %></td>
-        		<% end %>
-          <% else %>
-            <td>
-        		<% if piece.present? %>
-                          <%= link_to "#{piece_color(row,col)} #{piece.type}", select_piece_path(piece) %></td>
-        		<% end %>
+          <% square_desc = "x" %>
+          <% if piece %>
+          <% square_desc = "#{piece_color(row, col)} #{piece.type}" %>
           <% end %>
+          <!-- if there is a selected piece, draw move UI-->
+            <% if selected_piece %>
+                <% square_id = row * 8 + col %>
+                <% if piece.nil? || piece.id != selected_piece.id %>
+                    <%= link_to square_desc, move_piece_path(square_id) %>
+                <% else %>
+                    <strong><%= square_desc %></strong>
+                <% end %>
+            <% else %>
+          <!-- there is no selected piece, draw select UI -->
+                <% if piece.present? %>
+            		  <%= link_to "#{piece_color(row,col)} #{piece.type}", select_piece_path(piece) %>
+          		<% end %>
+            <% end %>    
         <% end %>
-      </tr>
-
-      <% else %>
-
-        <% (0..7).each do |col| %>
-       	  <% if @pieces.select{|piece| (piece.row_pos == row && piece.col_pos == col)}.present? %>
-      	    <% piece = @pieces.select{|piece| (piece.row_pos == row && piece.col_pos == col)}[0] %></td>
-      	  <% end %>
-      	  <% if col.odd? %>
-            <td class="gray-space">
-        		<% if piece.present? %>
-          		  <%= link_to "#{piece_color(row,col)} #{piece.type}", select_piece_path(piece) %></td>
-        		<% end %>
-          <% else %>
-            <td>
-        		<% if piece.present? %>
-                          <%= link_to "#{piece_color(row,col)} #{piece.type}", select_piece_path(piece) %></td>
-		        <% end %>
-          <% end %>
-        <% end %>
-	<% end %>
- 	<% end %>
+        </td>
+     </tr>
+ 	  <% end %>
   </tbody>
 </table>
 <br /><br />
