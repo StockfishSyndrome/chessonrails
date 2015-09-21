@@ -21,7 +21,7 @@ class PiecesController < ApplicationController
                 selected_piece.save
             end
         end
-        redirect_to game_path(current_game.id)
+        redirect_to game_path(selected_piece.game)
   end
 
   private
