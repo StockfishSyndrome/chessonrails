@@ -40,13 +40,44 @@ class GamesController < ApplicationController
         end
     end
 
+
     private
+
 
     def game_params
         params.required(:game).permit(:name,:player_white_id, :player_black_id)
     end
 
+    helper_method :get_piece_at_position
+    helper_method :selected_piece
     helper_method :piece_color
+    helper_method :get_piece_color
+
+    def get_piece_at_position(row, col)
+        piece = @pieces.find { |p| p.row_pos == row && p.col_pos == col}
+    end
+
+    def selected_piece(row, col)
+        piece = piece_finder(row, col)
+        if piece
+            @selected_piece = piece.type
+        else
+            @selected_piece = ""
+        end
+        @selected_piece
+    end
+
+    def get_piece_color(game, piece)
+        # handle bad data
+        return "" if game.nil? || piece.nil?
+
+        return "Black" if piece.user_id == game.player_black_id
+        return "White" if piece.user_id == game.player_white_id
+
+        # the piece is not in this game!
+        ""
+    end
+
     def piece_color(row,col)
         piece = piece_finder(row,col)
         if piece

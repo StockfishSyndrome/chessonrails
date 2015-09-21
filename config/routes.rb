@@ -3,13 +3,14 @@ Chessonrails::Application.routes.draw do
   devise_for :users
   root 'games#index'
 
-  resources :games, :only => [:show, :new, :create, :update] 
+  resources :games, :only => [:show, :new, :create, :update]
 
   resources :pieces, :only => [:update] do
     member do
      get 'select'
+     get 'move'
     end
-  end 
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
