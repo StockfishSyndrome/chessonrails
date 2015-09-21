@@ -50,7 +50,7 @@ class GamesController < ApplicationController
 
     helper_method :get_piece_at_position
     helper_method :selected_piece
-    helper_method :piece_color
+    helper_method :piece_color, :piece_finder
     helper_method :get_piece_color
 
     def get_piece_at_position(row, col)
@@ -93,6 +93,6 @@ class GamesController < ApplicationController
     end
 
     def piece_finder(row,col)
-        piece = @pieces.find {|p| p.row_pos == row && p.col_pos == col}
+        @pieces.find {|p| p.row_pos == row && p.col_pos == col}
     end
 end
