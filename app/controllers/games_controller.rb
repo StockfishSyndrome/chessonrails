@@ -23,7 +23,7 @@ class GamesController < ApplicationController
         @game = Game.where(:id => params[:id]).first
         if !@game.blank?
             @pieces = @game.pieces.to_a
-	else
+	    else
             render :text => "Not found", :status => :not_found
         end
     end
