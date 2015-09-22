@@ -2,14 +2,16 @@ class Piece < ActiveRecord::Base
     belongs_to :user
     belongs_to :game
    
-#    self.inheritance_column = nil
-
-
-    def valid_move?(row, col)
+    def valid_move?(row, col)        
         if self.col_pos == col && self.row_pos == row
-            return false
+          return false
+        elsif self.is_obstructed?(row, col)
+          return false
+        elsif self.is_out_of_bounds?(row,col)
+          return false
+        else
+          return true
         end
-        return !self.is_obstructed?(row, col)
     end
 
 
@@ -19,10 +21,6 @@ class Piece < ActiveRecord::Base
 
 
     def is_obstructed?(row,col)
-    # check that move in in bounds, if not flag as obstructed
-    if row < 0 || col < 0 || row > 7 || col > 7
-      return true
-    end
 
       vertical = false
       horizontal = false
@@ -112,6 +110,14 @@ class Piece < ActiveRecord::Base
         return false
 
       else
+        return true
+      end
+    end
+
+    # check to see if move it outside of game board. 
+    # row and col must both fall between 0 and 7
+    def is_out_of_bounds?(row,col)
+      if row < 0 || col < 0 || row > 7 || col > 7
         return true
       end
     end
