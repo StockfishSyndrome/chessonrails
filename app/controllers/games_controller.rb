@@ -21,11 +21,13 @@ class GamesController < ApplicationController
 
     def show
         @game = Game.where(:id => params[:id]).first
+        session[:current_game_id] = @game.id
         if !@game.blank?
             @pieces = @game.pieces.to_a
 	    else
             render :text => "Not found", :status => :not_found
         end
+
     end
 
     def update
