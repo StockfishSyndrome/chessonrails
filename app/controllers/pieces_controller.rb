@@ -6,7 +6,7 @@ class PiecesController < ApplicationController
     redirect_to game_path(piece.game)
   end
 
-  def move    
+  def move
       selected_piece = Piece.where(is_selected: true, user_id: current_user.id).last
         if selected_piece
             square_id = params[:id].to_i
@@ -20,7 +20,7 @@ class PiecesController < ApplicationController
                 selected_piece.save
             end
         end
-        redirect_to game_path(selected_piece.game)
+        redirect_to game_path(session[:current_game_id])
   end
 
   private

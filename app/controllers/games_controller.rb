@@ -23,6 +23,7 @@ class GamesController < ApplicationController
         @game = Game.where(:id => params[:id]).first
         if !@game.blank?
             @pieces = @game.pieces.to_a
+            session[:current_game_id] = @game.id
 	    else
             render :text => "Not found", :status => :not_found
         end
