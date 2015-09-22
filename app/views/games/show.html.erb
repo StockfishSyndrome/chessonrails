@@ -16,30 +16,30 @@
        <tr>
         <% (0..7).each do |col| %>
        	  <td class="<%= "gray-space" if (col.even? && row.odd?) || (col.odd? && row.even?) %>">
-         <!-- find out if there is a piece in the square -->
-          
-      	    <% piece = piece_finder(row,col) %>
-    
+         <!-- find out if there is a piece in the square -->          
+          <% piece = piece_finder(row,col) %>    
           <% square_desc = "x" %>
-          <% if piece %>
-          <% square_desc = "#{piece_color(row, col)} #{piece.type}" %>
-          <% end %>
+            <% if piece %>
+              <% square_desc = "#{piece_color(row, col)} #{piece.type}" %>
+            <% end %>
           <!-- if there is a selected piece, draw move UI-->
             <% if selected_piece %>
-                <% square_id = row * 8 + col %>
-                <% if piece.nil? || piece.id != selected_piece.id %>
-                    <%= link_to square_desc, move_piece_path(square_id) %>
-                <% else %>
-                    <strong><%= square_desc %></strong>
-                <% end %>
-            <% else %>
-          <!-- there is no selected piece, draw select UI -->
-                <% if piece.present? %>
-            		  <%= link_to "#{piece_color(row,col)} #{piece.type}", select_piece_path(piece) %>
-          		<% end %>
-            <% end %>    
-        <% end %>
-        </td>
+              <% square_id = row * 8 + col %>
+              <% if piece.nil? || piece.id != selected_piece.id %>
+                <%= link_to square_desc, move_piece_path(square_id) %>
+              <% else %>
+                <strong><%= square_desc %></strong>
+              <% end %>
+            <% elsif piece %>
+          <!-- if there is a piece and it's the current user's, draw select UI -->
+              <% if piece.user_id == current_user.id %>
+            		<%= link_to square_desc, select_piece_path(piece) %> 
+          		<% else %>    
+                <%= square_desc %>
+              <% end %>                
+            <% end %>             
+          </td>
+        <% end %>  
      </tr>
  	  <% end %>
   </tbody>
