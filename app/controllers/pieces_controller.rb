@@ -6,9 +6,8 @@ class PiecesController < ApplicationController
     redirect_to game_path(piece.game)
   end
 
-  def move
- 
-      selected_piece = Piece.where(is_selected: true, user_id: current_user.id).first
+  def move    
+      selected_piece = Piece.where(is_selected: true, user_id: current_user.id).last
         if selected_piece
             square_id = params[:id].to_i
             dest_row = square_id / 8
