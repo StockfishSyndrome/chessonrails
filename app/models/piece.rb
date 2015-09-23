@@ -9,7 +9,7 @@ class Piece < ActiveRecord::Base
         if self.col_pos == col && self.row_pos == row
             return false
         end
-        return !self.is_obstructed?(row, col)
+        # return !self.is_obstructed?(row, col)
     end
 
 
