@@ -2,6 +2,9 @@ class Piece < ActiveRecord::Base
     belongs_to :user
     belongs_to :game
    
+    # valid_move? accepts row and column destination position and checks whether 
+    # the piece is trying to remain stationary, if it is obstructed, and if it is out of bounds
+    # Type Specific validation is handled in child classes.
     def valid_move?(row, col)        
         if self.col_pos == col && self.row_pos == row
           return false
@@ -14,11 +17,15 @@ class Piece < ActiveRecord::Base
         end
     end
 
-
+    # STI implementation for various types of pieces
     def self.types
         %w(Pawn King Queen Rook Knight Bishop)
     end
 
+    # is_obstructed? accepts row and column destination position data and returns a boolean 
+    # A generic piece's move is considered obstructed in the following scenarios:
+    # - There are pieces between it's starting position and it's destination position
+    # - It's destination position is occupied by a piece belonging to the same user who owns the moving piece
     def is_obstructed?(row,col)
 
       vertical = false
@@ -131,7 +138,8 @@ class Piece < ActiveRecord::Base
       end
     end
 
-   def get_piece_at(row, col)
+    # accepts row and col and returns a piece found at that coordinate
+    def get_piece_at(row, col)
      Piece.where(row_pos: row, col_pos: col, game_id: self.game_id).first
-   end
+    end
 end
