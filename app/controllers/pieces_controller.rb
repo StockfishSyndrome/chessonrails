@@ -15,7 +15,7 @@ class PiecesController < ApplicationController
 
             if selected_piece.valid_move?(dest_row, dest_col)
               piece_at_dest = get_piece_at_dest(dest_row, dest_col)
-              if !piece_at_dest.nil?
+              if piece_at_dest.present?
                 capture(dest_row, dest_col)
               end  
               selected_piece.row_pos = dest_row
