@@ -1,26 +1,15 @@
 class Pawn < Piece
 
-        # piece is parent class
-        # weather valid_move? or not
+        # Piece is parent class
         # @param    row int row num of proposed move
-         # @param    col int col num of proposed move
+        # @param    col int col num of proposed move
         # @return   bool weather the piece is_obstructed or not
 
-        # Usually one square forward.
-        # If it is capturing an opposing piece,
-        # however, it moves one square forward diagonally.
-        # Each pawn may move two squares forward the first time it moves.
-        # If it does, it cannot capture in the same move. Pawns can never move backwards.
+        # 1) on its first move it can move forward 2 and cannot capture
+        # 2) on any turn it can move forward 1 and cannot capture
+        # 3) on any turn it can move diagonally forward 1 space and capture
 
-        # check correct diag move (only one sqaure && only FORWARD)
-        # black_player can only make negative diagonal MOVES
-        # white_player can only make positive digonal moves
-        # white --> row + 1 OR  black --> row - 1
-        # It can only move col+1 or col-1
-        # valid moves: ONLY FORWARD MOVES. from black_player perspective forward moves are -ve moves
-        # and hence white player cal only move +ve side
-        # forward_modifier is a variable to keep in check the forward move and is used throughout
-        # the conditions to check valid moves
+
 
 
         def valid_move?(row, col)
@@ -41,26 +30,36 @@ class Pawn < Piece
                 first_move = (self.row_pos == 6)
             end
 
-            if first_move # row_pos = 1 == 2 + 2 *
+            if first_move
                 if ( self.row_pos + (2 * forward_modifier) == row)
-                    return true
-                end
-            end
-
-            if !self.game.pieces.where("row_pos = ? AND col_pos = ?",row,col).blank?
-                if ( (self.col_pos == col + 1) || (self.col_pos == col - 1) )
-                    if (self.row_pos + (1 * forward_modifier) == row )
+                    if get_piece_at(row, col).present?
+                        return false
+                    else
                         return true
                     end
                 end
             end
 
-            # checking for black/white side player move
+            if ( (self.col_pos - col).abs == 1 )
+                if (self.row_pos + (1 * forward_modifier) == row )
+                    if get_piece_at(row, col).present?
+                        return true
+                    else
+                        return false
+                    end
+                end
+            end
+
             if (self.row_pos + forward_modifier == row)
-                return true
+                if get_piece_at(row, col).present?
+                    return false
+                else
+                    return true
+                end
             end
 
             return false
+
         end
 
 end

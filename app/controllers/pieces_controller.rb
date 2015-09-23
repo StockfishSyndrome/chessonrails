@@ -17,7 +17,7 @@ class PiecesController < ApplicationController
               piece_at_dest = get_piece_at_dest(dest_row, dest_col)
               if piece_at_dest.present?
                 capture(dest_row, dest_col)
-              end  
+              end
               selected_piece.row_pos = dest_row
               selected_piece.col_pos = dest_col
               selected_piece.is_selected = false

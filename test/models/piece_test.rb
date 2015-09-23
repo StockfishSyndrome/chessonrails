@@ -123,7 +123,7 @@ class PieceTest < ActiveSupport::TestCase
     test "Pawn, invalid move" do
       pawn = FactoryGirl.create(:pawn, row_pos: 1, col_pos: 2)
       assert(!pawn.valid_move?(2,4))
-        end
+    end
 
     test "Pawn valid first_move" do
       game = FactoryGirl.create(:game)
