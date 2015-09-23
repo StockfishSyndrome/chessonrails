@@ -25,6 +25,7 @@ class Piece < ActiveRecord::Base
       horizontal = false
       diagonal = false
 
+      # Check for piece at destination. If own piece, mark as obstructed.
       destination_piece = get_piece_at(row,col)
       if destination_piece.present? && destination_piece.user == self.user
         return true
@@ -49,14 +50,14 @@ class Piece < ActiveRecord::Base
       # Step through vertical spaces, checking for occupancy
       if vertical
         if self.row_pos > row # moving up on board
-          (self.row_pos - 1).downto(row+1) do |i| # iterate through available rows
-            if self.game.pieces.where("row_pos = ? AND col_pos = ?",i,col).present?
+          (self.row_pos - 1).downto(row+1) do |r| # iterate through available rows
+            if get_piece_at(r,col).present?
               return true
             end
           end
         else # moving down
-          ((self.row_pos + 1)..row-1).each do |i| # iterate through available rows
-            if self.game.pieces.where("row_pos = ? AND col_pos = ?",i,col).present?
+          ((self.row_pos + 1)..row-1).each do |r| # iterate through available rows
+            if get_piece_at(r,col).present?
               return true
             end
           end
@@ -66,14 +67,14 @@ class Piece < ActiveRecord::Base
       # Step through horizontal spaces, checking for occupancy  
       elsif horizontal
         if self.col_pos > col # moving left on board
-          (self.col_pos - 1).downto(col+1) do |i| # iterate through available columns
-            if self.game.pieces.where("row_pos = ? AND col_pos = ?",row,i).present?
+          (self.col_pos - 1).downto(col+1) do |c| # iterate through available columns
+            if get_piece_at(row,c).present?
               return true
             end
           end
         else # moving right
-          ((self.col_pos + 1)..col-1).each do |i| # iterate through available columns
-            if self.game.pieces.where("row_pos = ? AND col_pos = ?",row,i).present?
+          ((self.col_pos + 1)..col-1).each do |c| # iterate through available columns
+            if get_piece_at(row,c).present?
               return true
             end
           end
@@ -83,33 +84,33 @@ class Piece < ActiveRecord::Base
       #Step diagonally through spaces, checking for occupancy
       elsif diagonal
         if self.col_pos < col && self.row_pos < row
-          ((self.col_pos + 1)..col-1).each do |i| # iterate through available columns
+          ((self.col_pos + 1)..col-1).each do |c| # iterate through available columns
             ((self.row_pos + 1)..row-1).each do |r|
-              if self.game.pieces.where("row_pos = ? AND col_pos = ?",r,i).present?
+              if get_piece_at(r,c).present?
                 return true
               end
             end
           end
         elsif self.col_pos < col && self.row_pos > row
-          ((self.col_pos + 1)..col-1).each do |i| # iterate through available columns
+          ((self.col_pos + 1)..col-1).each do |c| # iterate through available columns
             (self.row_pos - 1).downto(row+1) do |r|
-              if self.game.pieces.where("row_pos = ? AND col_pos = ?",r,i).present?
+              if get_piece_at(r,c).present?
                 return true
               end
             end
           end
         elsif self.col_pos > col && self.row_pos < row
-          (self.col_pos - 1).downto(col+1) do |i| # iterate through available columns
+          (self.col_pos - 1).downto(col+1) do |c| # iterate through available columns
             ((self.row_pos+1)..row-1).each do |r|
-              if self.game.pieces.where("row_pos = ? AND col_pos = ?",r,i).present?
+              if get_piece_at(r,c).present?
                 return true
               end
             end
           end
         else
-          (self.col_pos - 1).downto(col+1) do |i| # iterate through available columns
+          (self.col_pos - 1).downto(col+1) do |c| # iterate through available columns
             (self.row_pos - 1).downto(row+1) do |r|
-              if self.game.pieces.where("row_pos = ? AND col_pos = ?",r,i).present?
+              if get_piece_at(r, c).present?
                 return true
               end
             end
