@@ -14,16 +14,31 @@ class PiecesController < ApplicationController
             dest_col = square_id % 8
 
             if selected_piece.valid_move?(dest_row, dest_col)
-                selected_piece.row_pos = dest_row
-                selected_piece.col_pos = dest_col
-                selected_piece.is_selected = false
-                selected_piece.save
+              piece_at_dest = get_piece_at_dest(dest_row, dest_col)
+              if !piece_at_dest.nil?
+                capture(dest_row, dest_col)
+              end  
+              selected_piece.row_pos = dest_row
+              selected_piece.col_pos = dest_col
+              selected_piece.is_selected = false
+              selected_piece.save
             end
         end
         redirect_to game_path(session[:current_game_id])
   end
 
   private
+
+  def capture(row, col)
+    piece_at_dest = get_piece_at_dest(row, col)
+    piece_at_dest.row_pos = nil
+    piece_at_dest.col_pos = nil
+    piece_at_dest.save
+  end
+
+  def get_piece_at_dest(row, col)
+    Piece.where(row_pos: row, col_pos: col, game_id: session[:current_game_id]).first
+  end
 
   def piece_params
     params.required(:piece)
