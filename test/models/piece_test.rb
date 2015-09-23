@@ -163,10 +163,10 @@ class PieceTest < ActiveSupport::TestCase
         assert(!b.valid_move?(1,1))
     end
 
-    test "Queen, invalid move" do
-        q = FactoryGirl.create(:queen, row_pos:1, col_pos:1)
-        assert(!q.valid_move?(8,1))
-    end
+    # test "Queen, invalid move" do
+    #     q = FactoryGirl.create(:queen, row_pos:1, col_pos:1)
+    #     assert(!q.valid_move?(8,1))
+    # end
 
     test "Queen, valid move" do
         q = FactoryGirl.create(:queen, row_pos:1, col_pos:1)
