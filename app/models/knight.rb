@@ -25,9 +25,19 @@ class Knight < Piece
             return false
         end
 
-        # valid move: moving three squares in totat (either conbination of 2 row, 1 col OR 2 col, 1 row)
-        if (self.col_pos - col).abs + (self.row_pos - row).abs == 3
+        # check if destination has an ally piece
+        destination_piece = get_piece_at(row, col)
+        if destination_piece.present? && destination_piece.user == self.user
+            return false
+        end
+        
+        # valid moves for (row,col) are only (2,1) or (1,2)
+        if ( (self.col_pos - col).abs == 2) && ( (self.row_pos - row).abs == 1 )
             return true
+        elsif ( (self.col_pos - col).abs == 1) && ( (self.row_pos - row).abs == 2 )
+            return true
+        else
+            return false
         end
 
         return false
