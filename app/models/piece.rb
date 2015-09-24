@@ -88,43 +88,63 @@ class Piece < ActiveRecord::Base
         end
         return false
 
-      #Step diagonally through spaces, checking for occupancy
-      elsif diagonal
+      # Step diagonally through spaces, checking for occupancy
+      elsif diagonal  
+        # check direction of movement is down and right
         if self.col_pos < col && self.row_pos < row
-          ((self.col_pos + 1)..col-1).each do |c| # iterate through available columns
-            ((self.row_pos + 1)..row-1).each do |r|
+          col_trav = 1
+          row_trav = 1
+          c = self.col_pos + col_trav 
+          r = self.row_pos + row_trav 
+          while c < col
               if get_piece_at(r,c).present?
                 return true
               end
-            end
+              c += col_trav
+              r += row_trav
           end
-        elsif self.col_pos < col && self.row_pos > row
-          ((self.col_pos + 1)..col-1).each do |c| # iterate through available columns
-            (self.row_pos - 1).downto(row+1) do |r|
+        # check if movement is up and right
+        elsif self.col_pos < col && self.row_pos > row 
+          col_trav = 1
+          row_trav = -1
+          c = self.col_pos + col_trav # set current column
+          r = self.row_pos + row_trav # set current row
+          while c < col
               if get_piece_at(r,c).present?
                 return true
               end
-            end
+              c += col_trav
+              r += row_trav
           end
+        # check if movement is down and left
         elsif self.col_pos > col && self.row_pos < row
-          (self.col_pos - 1).downto(col+1) do |c| # iterate through available columns
-            ((self.row_pos+1)..row-1).each do |r|
+          col_trav = -1
+          row_trav = 1
+          c = self.col_pos + col_trav # set current column
+          r = self.row_pos + row_trav # set current row
+          while c > col
               if get_piece_at(r,c).present?
                 return true
               end
-            end
+              c += col_trav
+              r += row_trav
           end
+        # movement must be up and left 
         else
-          (self.col_pos - 1).downto(col+1) do |c| # iterate through available columns
-            (self.row_pos - 1).downto(row+1) do |r|
-              if get_piece_at(r, c).present?
+          # TODO: Change this code to reference starting position, then iterate through col and row until 1 less than final row
+          col_trav = -1
+          row_trav = -1
+          c = self.col_pos + col_trav # set current column
+          r = self.row_pos + row_trav # set current row
+          while c > col
+              if get_piece_at(r,c).present?
                 return true
               end
-            end
+              c += col_trav
+              r += row_trav
           end
         end
         return false
-
       else
         return true
       end
