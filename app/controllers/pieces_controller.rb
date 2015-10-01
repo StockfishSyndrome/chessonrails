@@ -7,7 +7,17 @@ class PiecesController < ApplicationController
   end
 
   def move
-      selected_piece = Piece.where(is_selected: true, user_id: current_user.id, game_id: session[:current_game_id]).first
+      selected_piece = Piece.where(is_selected: true, color: nil, user_id: current_user.id, game_id: session[:current_game_id]).first
+
+        if selected_piece
+            if selected_piece.color == nil
+                game = Game.find(selected_piece.game_id)
+                game.update(:player_turn => 0)
+                flash[:alert] = "Wait for you turn"
+            end
+            #redirect_to game_path(session[:current_game_id])
+        end
+
         if selected_piece
             square_id = params[:id].to_i
             dest_row = square_id / 8
@@ -40,6 +50,9 @@ class PiecesController < ApplicationController
     Piece.where(row_pos: row, col_pos: col, game_id: session[:current_game_id]).first
   end
 
+  def select_piece
+      @select_piece = Piece.find(params[:id])
+  end
   def piece_params
     params.required(:piece)
   end
