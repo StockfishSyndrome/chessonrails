@@ -3,10 +3,14 @@ class PiecesController < ApplicationController
   def select
     piece = Piece.find(params[:id])
     game = Game.find(piece.game_id)
-    if game.player_turn.even?
-        flash[:alert] = "Wait for your turn"
-    else
-        piece.update(is_selected: true)
+    if piece.user_id == game.player_black_id
+        if game.player_turn.even?
+            piece.update(is_selected: true)
+        end
+    elsif piece.user_id == game.player_white_id
+        if game.player_turn.odd?
+            piece.update(is_selected: true)
+        end
     end
     game.increment!(:player_turn)
     redirect_to game_path(piece.game)
