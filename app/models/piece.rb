@@ -24,24 +24,6 @@ class Piece < ActiveRecord::Base
     end
 
 
-=begin
-
-    def switch_player_turn(select_piece)
-        game = Game.find(select_piece.game_id)
-
-        if select_piece.color == 1
-            game.update(:player_turn => 0)
-        else
-            game.update(:player_turn => 1)
-        end
-    end
-
-    def my_turn?(select_piece)
-        game = Game.find(select_piece.game_id)
-        game.player_turn == select_piece.color #true or false
-    end
-=end
-
     # is_obstructed? accepts row and column destination position data and returns a boolean
     # A generic piece's move is considered obstructed in the following scenarios:
     # - There are pieces between it's starting position and it's destination position
