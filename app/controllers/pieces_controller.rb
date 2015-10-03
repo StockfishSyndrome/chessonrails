@@ -13,7 +13,7 @@ class PiecesController < ApplicationController
   end
 
   def move
-      selected_piece = Piece.where(is_selected: true, color: nil, user_id: current_user.id, game_id: session[:current_game_id]).first
+      selected_piece = Piece.where(is_selected: true, user_id: current_user.id, game_id: session[:current_game_id]).first
         if selected_piece
             square_id = params[:id].to_i
             dest_row = square_id / 8
