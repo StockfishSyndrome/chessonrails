@@ -28,7 +28,6 @@ class PiecesController < ApplicationController
               selected_piece.col_pos = dest_col
               selected_piece.is_selected = false
               selected_piece.save
-              # change_turn
             end
         end
         redirect_to game_path(session[:current_game_id])
