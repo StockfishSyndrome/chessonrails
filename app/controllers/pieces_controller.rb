@@ -46,9 +46,6 @@ class PiecesController < ApplicationController
     Piece.where(row_pos: row, col_pos: col, game_id: session[:current_game_id]).first
   end
 
-  def select_piece
-      @select_piece = Piece.find(params[:id])
-  end
   def piece_params
     params.required(:piece)
   end
