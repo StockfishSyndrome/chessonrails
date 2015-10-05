@@ -2,7 +2,22 @@ class PiecesController < ApplicationController
 
   def select
     piece = Piece.find(params[:id])
-    piece.update(is_selected: true)
+    game = Game.find(piece.game_id)
+    if piece.user_id == game.player_black_id
+        if game.player_turn.even?
+            piece.update(is_selected: true)
+            game.increment!(:player_turn)
+        else
+            flash[:alert] = "Wait for your turn!"
+        end
+    elsif piece.user_id == game.player_white_id
+        if game.player_turn.odd?
+            piece.update(is_selected: true)
+            game.increment!(:player_turn)
+        else
+            flash[:alert] = "Wait for your turn!"
+        end
+    end
     redirect_to game_path(piece.game)
   end
 

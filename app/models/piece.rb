@@ -1,11 +1,12 @@
 class Piece < ActiveRecord::Base
     belongs_to :user
     belongs_to :game
-   
-    # valid_move? accepts row and column destination position and checks whether 
+
+    # valid_move? accepts row and column destination position and checks whether
     # the piece is trying to remain stationary, if it is obstructed, and if it is out of bounds
     # Type Specific validation is handled in child classes.
-    def valid_move?(row, col)        
+
+    def valid_move?(row, col)
         if self.col_pos == col && self.row_pos == row
           return false
         elsif is_obstructed?(row, col)
@@ -22,7 +23,8 @@ class Piece < ActiveRecord::Base
         %w(Pawn King Queen Rook Knight Bishop)
     end
 
-    # is_obstructed? accepts row and column destination position data and returns a boolean 
+
+    # is_obstructed? accepts row and column destination position data and returns a boolean
     # A generic piece's move is considered obstructed in the following scenarios:
     # - There are pieces between it's starting position and it's destination position
     # - It's destination position is occupied by a piece belonging to the same user who owns the moving piece
@@ -71,7 +73,7 @@ class Piece < ActiveRecord::Base
         end
         return false
 
-      # Step through horizontal spaces, checking for occupancy  
+      # Step through horizontal spaces, checking for occupancy
       elsif horizontal
         if self.col_pos > col # moving left on board
           (self.col_pos - 1).downto(col+1) do |c| # iterate through available columns
@@ -89,13 +91,13 @@ class Piece < ActiveRecord::Base
         return false
 
       # Step diagonally through spaces, checking for occupancy
-      elsif diagonal  
+      elsif diagonal
         # check direction of movement is down and right
         if self.col_pos < col && self.row_pos < row
           col_trav = 1
           row_trav = 1
-          c = self.col_pos + col_trav 
-          r = self.row_pos + row_trav 
+          c = self.col_pos + col_trav
+          r = self.row_pos + row_trav
           while c < col
               if get_piece_at(r,c).present?
                 return true
@@ -104,7 +106,7 @@ class Piece < ActiveRecord::Base
               r += row_trav
           end
         # check if movement is up and right
-        elsif self.col_pos < col && self.row_pos > row 
+        elsif self.col_pos < col && self.row_pos > row
           col_trav = 1
           row_trav = -1
           c = self.col_pos + col_trav # set current column
@@ -129,7 +131,7 @@ class Piece < ActiveRecord::Base
               c += col_trav
               r += row_trav
           end
-        # movement must be up and left 
+        # movement must be up and left
         else
           # TODO: Change this code to reference starting position, then iterate through col and row until 1 less than final row
           col_trav = -1
@@ -150,7 +152,7 @@ class Piece < ActiveRecord::Base
       end
     end
 
-    # check to see if move it outside of game board. 
+    # check to see if move it outside of game board.
     # row and col must both fall between 0 and 7
     def is_out_of_bounds?(row,col)
       if row < 0 || col < 0 || row > 7 || col > 7
@@ -160,6 +162,6 @@ class Piece < ActiveRecord::Base
 
     # accepts row and col and returns a piece found at that coordinate
     def get_piece_at(row, col)
-     Piece.where(row_pos: row, col_pos: col, game_id: self.game_id).first
+        Piece.where(row_pos: row, col_pos: col, game_id: self.game_id).first
     end
 end
