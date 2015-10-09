@@ -25,8 +25,10 @@
           <!-- if there is a selected piece, draw move UI-->
             <% if selected_piece %>
               <% square_id = row * 8 + col %>
-              <% if piece.nil? || piece.id != selected_piece.id %>
+              <% if piece.nil? || piece.user_id != current_user.id %>
                 <%= link_to square_desc, move_piece_path(square_id) %>
+              <% elsif piece.user_id == current_user.id && piece.id != selected_piece.id %>
+                <%= link_to square_desc, switch_piece_path(piece) %>
               <% else %>
                 <strong><%= square_desc %></strong>
               <% end %>
