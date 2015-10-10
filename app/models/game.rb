@@ -50,4 +50,15 @@ class Game < ActiveRecord::Base
       Piece.create(game_id: self.id,user_id: @player,type: @type, row_pos: @row, col_pos: @column)
     end
   end
+
+  def is_in_check?(player)
+    my_king = Piece.where(user_id: player.id, type: 'King').first
+    op_pieces = Piece.where('user_id != ? AND row_pos >= ?', player.id,0)
+    op_pieces.each do |piece|
+      if piece.valid_move?(my_king.row_pos,my_king.col_pos)
+        return true
+      end
+    end
+    return false
+  end
 end
