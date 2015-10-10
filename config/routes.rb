@@ -9,6 +9,7 @@ Chessonrails::Application.routes.draw do
     member do
      get 'select'
      get 'move'
+     get 'switch'
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.

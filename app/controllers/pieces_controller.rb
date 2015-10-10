@@ -21,6 +21,17 @@ class PiecesController < ApplicationController
     redirect_to game_path(piece.game)
   end
 
+  def switch
+    piece = Piece.find(params[:id])
+    selected_piece = Piece.where(is_selected: true, user_id: current_user.id, game_id: session[:current_game_id]).first
+    if selected_piece.present?
+      selected_piece.is_selected = false
+      selected_piece.save
+    end
+    piece.update(is_selected: true)
+    redirect_to game_path(piece.game)
+  end
+
   def move
       selected_piece = Piece.where(is_selected: true, user_id: current_user.id, game_id: session[:current_game_id]).first
         if selected_piece
