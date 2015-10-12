@@ -4,8 +4,10 @@
   <h1>Game On!</h1><br />
 
   <h2><%= @game.name %></h2><br />
-  <% if @game.is_in_check?(@game.player_black) %>
-    <p>Black is in check!</p>
+  <% if @game.player_black.present? %>
+    <% if @game.is_in_check?(@game.player_black) %>
+      <p>Black is in check!</p>
+    <% end %>
   <% end %>
   <% if @game.is_in_check?(@game.player_white) %>
     <p>White is in check!</p>
